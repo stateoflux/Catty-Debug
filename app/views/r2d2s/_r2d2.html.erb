@@ -1,0 +1,12 @@
+<table class="r2d2-complex">
+  <tr class="r2d2">
+    <td class="label">R2D2: <%= r2d2.instance %></td>
+    <td class="center-cell"><%= r2d2.refdes %></td>
+  </tr>
+  <tr class="mem">
+    <%= render r2d2.rx_memories %>
+  </tr>
+  <tr class="mem">
+    <%= render r2d2.tx_memories %>
+  </tr>
+</table>

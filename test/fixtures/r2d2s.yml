@@ -1,0 +1,49 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+r2d2_0:
+  part_number: '08-0674-05'
+  instance: 0
+  refdes: 'U42'
+  assembly: ringar_5
+
+r2d2_1:
+  part_number: '08-0674-05'
+  instance: 1
+  refdes: 'U84'
+  assembly: ringar_5
+
+r2d2_2:
+  part_number: '08-0674-05'
+  instance: 2
+  refdes: 'U129'
+  assembly: ringar_5
+
+r2d2_3:
+  part_number: '08-0674-05'
+  instance: 3
+  refdes: 'U86'
+  assembly: ringar_5
+
+r2d2_4:
+  part_number: '08-0674-05'
+  instance: 4
+  refdes: 'U142'
+  assembly: ringar_5
+
+r2d2_5:
+  part_number: '08-0674-05'
+  instance: 5
+  refdes: 'U184'
+  assembly: ringar_5
+
+r2d2_6:
+  part_number: '08-0674-05'
+  instance: 6
+  refdes: 'U329'
+  assembly: ringar_5
+
+r2d2_7:
+  part_number: '08-0674-05'
+  instance: 7
+  refdes: 'U186'
+  assembly: ringar_5

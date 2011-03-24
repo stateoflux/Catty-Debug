@@ -1,0 +1,21 @@
+  <h2 class="view-head">Project Listing :<span class="sub-head">List of projects that are currently in the database</span></h2>
+  <table>
+    <thead>
+      <th>Project name</th>
+      <th>Revision</th>
+      <th>Num of R2D2s</th>
+    </thead>
+
+  <% @assemblies.each do |assembly| %>
+    <tr>
+      <td><%= assembly.project_name %></td>
+      <td><%= assembly.revision %></td>
+      <td><%= assembly.num_of_r2d2s %></td>
+      <td><%= link_to 'Show', assembly, :class => "button" %></td>
+      <td><%= link_to 'Edit', edit_assembly_path(assembly), :class => "button" %></td>
+      <td><%= link_to 'Destroy', assembly, :confirm => 'Are you sure?', :method => :delete, :class => "button" %></td>
+    </tr>
+  <% end %>
+  </table>
+  <br />
+  <span>Add new project  </span><%= link_to 'Add Project', new_assembly_path %>

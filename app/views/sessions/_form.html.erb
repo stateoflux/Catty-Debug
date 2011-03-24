@@ -1,0 +1,8 @@
+<%= form_tag session_path do %>
+  <fieldset class="login-field"> <!-- I couldn't seem to target the label without this -->
+    <%= label_tag :email, "Email:" %>
+    <%= text_field_tag :email %>
+  </fieldset>
+  <%= submit_tag 'Login' %>
+<% end %>
+

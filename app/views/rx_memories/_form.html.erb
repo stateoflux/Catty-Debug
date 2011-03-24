@@ -1,0 +1,12 @@
+<%= form.fields_for :rx_memories do |rx_mem_form| %>
+  <td>
+    <%= rx_mem_form.hidden_field :instance, :value => 0%>
+    <%= rx_mem_form.label :refdes, "RX Mem: " %>
+  </td>
+  <td>
+  <%= rx_mem_form.text_field :refdes, :size => 6, :placeholder => "U100" %>
+    <%#= rx_mem_form.label :part_number %>
+    <%#= rx_mem_form.text_field :part_number, :value => "15-11466-01" %>
+    <%= rx_mem_form.hidden_field :part_number, :value => "15-11466-01" %>
+  </td>
+<% end %>

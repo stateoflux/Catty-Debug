@@ -1,0 +1,33 @@
+<h2>Rework Request</h2>
+<p class="rework-contact-info">
+  This rework request has been submitted to Sam Rodriguez and will be processed
+  as soon as possible upon receipt.
+  To check status, just log into the web app and go to your home page. 
+  For questions, please contact: </br>
+  <span class="label">Sam Rodriguez at 7-3220, pager 800-796-7363 pin 1050441</span></br>
+  <span class="label">Backup contact: </span>David Pawelczak 525-6455 (Lab) or 526-5587, pager 388-3007<br />
+  <span class="label">Emergency contact: </span>Larry Kan 525-6653<br />
+  All boards must be removed from their tray before being given to Sam for processing.<br />
+  Deliver all assemblies to Sam's cubicle @ <span class="label">SJ-04 : 3rd floor : F3-10 no later than 2pm</span><br />
+  You will be notified once the board is ready for pickup<br />
+</p>
+<p class="rework-req-info">
+  <span class="label">Requestor: </span><%= @rework_request.r2d2_debug.user.first_name + " " + @rework_request.r2d2_debug.user.last_name %><br />
+  <span class="label">Turn around on this request should be: </span><%= @rework_request.turn_around %><br />
+  <span class="label">Board Name: </span><%= @rework_request.board_name %><br />
+  <span class="label">Assembly_Number: </span><%= @rework_request.r2d2_debug.assembly.assembly_number %><br />
+  <span class="label">Serial Number: </span><%= @rework_request.r2d2_debug.serial_number %><br />
+  <span class="label">Rework Instruction: </span><%= @rework_request.instructions %><br />
+  <span class="label">Is this board to be baked for 24 hours at 125C prior to rework? </span><%= @rework_request.bake %><br />
+  <span class="label">Is this board to be X-Ray'd after rework? </span><%= @rework_request.xray %><br /><br />
+  Please send all removed components with these rework instructions back to Cisco<br />
+</p>
+<div>
+<% unless session[:from_user_page] %>
+  <%= link_to 'Debug another board', new_r2d2_debug_path %> | <%= link_to 'Go back to home page', current_user %>
+<% else %>
+  <% session[:from_user_page] = nil %>
+  <%= link_to 'Go back to home page', current_user %>
+<% end %>
+</div>
+

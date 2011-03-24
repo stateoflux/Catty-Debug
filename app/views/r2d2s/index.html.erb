@@ -1,0 +1,29 @@
+<h1>Listing r2d2s</h1>
+
+<table>
+  <tr>
+    <th>Assembly</th>
+    <th>Part number</th>
+    <th>Instance</th>
+    <th>Refdes</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @r2d2s.each do |r2d2| %>
+  <tr>
+    <td><%= r2d2.assembly_id %></td>
+    <td><%= r2d2.part_number %></td>
+    <td><%= r2d2.instance %></td>
+    <td><%= r2d2.refdes %></td>
+    <td><%= link_to 'Show', r2d2 %></td>
+    <td><%= link_to 'Edit', edit_r2d2_path(r2d2) %></td>
+    <td><%= link_to 'Destroy', r2d2, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New R2d2', new_r2d2_path %>

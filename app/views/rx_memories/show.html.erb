@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>R2d2:</b>
+  <%= @rx_memory.r2d2_id %>
+</p>
+
+<p>
+  <b>Part number:</b>
+  <%= @rx_memory.part_number %>
+</p>
+
+<p>
+  <b>Instance:</b>
+  <%= @rx_memory.instance %>
+</p>
+
+<p>
+  <b>Refdes:</b>
+  <%= @rx_memory.refdes %>
+</p>
+
+
+<%= link_to 'Edit', edit_rx_memory_path(@rx_memory) %> |
+<%= link_to 'Back', rx_memories_path %>

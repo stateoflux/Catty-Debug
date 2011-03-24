@@ -1,0 +1,61 @@
+<%= form_for(@rework_request, :html => {:class => 'rework-form'}) do |f| %>
+  <% if @rework_request.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@rework_request.errors.count, "error") %> prohibited this rework_request from being saved:</h2>
+      <ul>
+        <% @rework_request.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="preloaded">
+    <fieldset class="fields-wrapper">
+      <fieldset class="group">
+        <%= label_tag 'first_name', 'First Name:' %>
+        <%= text_field_tag 'first_name', current_user.first_name %>
+      </fieldset>
+      <fieldset class="group">
+        <%= label_tag 'last_name', 'Last Name:' %>
+        <%= text_field_tag 'last_name', current_user.last_name %>
+      </fieldset>
+      <fieldset class="group">
+        <%= label_tag 'email', 'Email ID:' %>
+        <%= text_field_tag 'email', current_user.email %>
+      </fieldset>
+    </fieldset>
+    <fieldset class="fields-wrapper">
+      <fieldset class="group">
+        <%= f.label :board_name %>
+        <%= f.text_field :board_name, :value => current_user.r2d2_debugs.first.assembly.project_name, :size => 20 %>
+      </fieldset>
+      <fieldset class="group">
+        <%= label_tag 'assembly_number', 'Assembly Number:' %>
+        <%= text_field_tag 'assembly_number', current_user.r2d2_debugs.first.assembly.assembly_number %>
+      </fieldset>
+      <fieldset class="group">
+        <%= label_tag 'serial_number', 'Serial Number:' %>
+        <%= text_field_tag 'serial_number', current_user.r2d2_debugs.first.serial_number %>
+      </fieldset>
+    </fieldset>
+  </div>
+  <fieldset>
+  <%= f.label :turn_around, 'Desired Turn Around Time:' %>
+    <%= f.select :turn_around, options_for_select(["1-2 days", "3-5 days"], "3-5 days") %>
+  </fieldset>
+  <fieldset>
+    <%= f.label :instructions, 'Rework Instructions:' %>
+    <%= f.text_area :instructions, :size => "80x10", :value => "Replace RLDRAM @ " + current_user.r2d2_debugs.first.get_unique_refdes %>
+  </fieldset>
+  <fieldset>
+    <%= f.label :xray, "X-Ray'd Upon Completion?" %>
+    <%= f.radio_button :xray, "yes", :checked => true %><span>Yes</span>
+    <%= f.radio_button :xray, "no" %><span>No</span><br />
+  </fieldset>
+  <fieldset>
+    <%= f.label :bake, "Bake Board @125C For 24 Hours Before Component is Removed? (Required for vendor FA)" %>
+    <%= f.radio_button :bake, "yes", :checked => true %><span>Yes</span>
+    <%= f.radio_button :bake, "no" %><span>No</span><br /><br/>
+  </fieldset>
+  <%= f.submit %>
+<% end %>

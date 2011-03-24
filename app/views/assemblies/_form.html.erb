@@ -1,0 +1,60 @@
+<%= form_for(@assembly) do |f| %>
+  <% if @assembly.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@assembly.errors.count, "error") %> prohibited this assembly from being saved:</h2>
+      <ul>
+        <% @assembly.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+      <ul>
+        <% @assembly.r2d2s.each do |r2d2| %>
+          <% r2d2.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+            <li>
+              <ul>
+                <% r2d2.rx_memories.each do |rx_mem| %>
+                  <% rx_mem.errors.full_messages.each do |msg| %>
+                    <li><%= msg %></li>
+                  <% end %>
+                <% end %>
+              </ul>
+            </li>
+          <% end %>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <table class="project">
+    <tr>
+      <td><%= f.label :project_name %></td>
+      <td><%= f.text_field :project_name %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :revision %></td>
+      <td><%= f.text_field :revision %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :assembly_number %></td>
+      <td><%= f.text_field :assembly_number %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :num_of_r2d2s %></td>
+      <td><%= f.text_field :num_of_r2d2s %></td>
+    </tr>
+  </table>
+    <% if (@assembly.r2d2s.empty?) %>
+      <% 0.upto(7) do %>
+        <% r2d2 = @assembly.r2d2s.build %>
+        <% 0.upto(3) do %>
+          <% r2d2.rx_memories.build %>
+          <% r2d2.tx_memories.build %>
+        <% end %>
+      <% end %>
+    <% end %>
+    <h3 class="view">R2D2 Complexes</h3>
+    <%= render 'r2d2s/form', :form => f %>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

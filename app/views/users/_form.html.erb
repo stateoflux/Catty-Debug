@@ -1,0 +1,41 @@
+<%= form_for(@user, :html => {:class => "new-user-form"}) do |f| %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+      <ul>
+        <% @user.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+    <% end %>
+  <fieldset>
+    <% if @user.errors.on(:first_name) %>
+      <p>
+        <% @user.errors.on(:first_name) %> 
+      </p>
+    <% end %>
+    <%= f.label :first_name, 'Your First Name:' %>
+    <%= f.text_field :first_name %>
+  </fieldset>
+  <fieldset>
+    <%= f.label :last_name, 'Your Last Name:' %>
+    <%= f.text_field :last_name %>
+  </fieldset>
+  <fieldset>
+    <%= f.label :email, 'Your Email:' %>
+    <%= f.text_field :email %>
+  </fieldset>
+  <% if @user.new_record? %>
+    <%= f.hidden_field :admin, :value => false %>
+  <% else %>
+    <fieldset>
+      <%= f.label :admin %>
+      <%= f.radio_button :admin, false %><span>No</span>
+      <%= f.radio_button :admin, true %><span>Yes</span>
+    </fieldset>
+  <% end %>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,28 @@
+<%= form_for(@r2d2_debug, :html => {:class => 'debug-form'}) do |f| %>
+  <% if @r2d2_debug.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@r2d2_debug.errors.count, "error") %> prohibited this r2d2_debug from being saved:</h2>
+      <ul>
+        <% @r2d2_debug.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <!-- select project from pulldown menu -->
+  <fieldset>
+    <%= f.label :assembly_id, "What type of board did this failure occur?" %>
+    <%= f.collection_select :assembly_id, Assembly.all, :id, :proper_name %>
+  </fieldset>
+  <!-- Enter board serial number -->
+  <fieldset>
+  <%= f.label :serial_number, "What's the serial number of the failing board?" %>
+    <%= f.text_field :serial_number, :placeholder => "SAD101010XY" %>
+  </fieldset>
+  <!-- Paste in result from r2d2 packet buffer test -->
+  <fieldset>
+    <%= label_tag 'test_result', "Paste in the result from r2d2 packet buffer test" %>
+    <%= text_area_tag 'test_result', nil, :size => "80x25" %>
+  </fieldset>
+  <%= f.submit %>
+<% end %>

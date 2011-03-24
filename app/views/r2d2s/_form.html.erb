@@ -1,0 +1,19 @@
+<%= form.fields_for :r2d2s do |r2d2_form| %>
+  <table class="r2d2-complex">
+    <tr class="r2d2">
+      <td>
+        <%= r2d2_form.hidden_field :instance, :value => 0%>
+        <%= r2d2_form.label :refdes, "R2D2: " %>
+      </td>
+      <td class="center-cell"><%= r2d2_form.text_field :refdes, :size => 6, :placeholder => "U100" %></td>
+      <td><%= r2d2_form.label :part_number %></td>
+      <td><%= r2d2_form.text_field :part_number, :value => "08-0674-05", :size => 11 %></td>
+    </tr>
+    <tr class="mem">
+      <%= render 'rx_memories/form', :form => r2d2_form %>
+    </tr>
+    <tr class="mem">
+      <%= render 'tx_memories/form', :form => r2d2_form %>
+    </tr>
+  </table>
+<% end %>

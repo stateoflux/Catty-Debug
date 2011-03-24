@@ -1,0 +1,12 @@
+<%= form.fields_for :tx_memories do |tx_mem_form| %>
+  <td>
+    <%= tx_mem_form.hidden_field :instance, :value => 0%>
+    <%= tx_mem_form.label :refdes, "TX Mem: " %>
+  </td>
+  <td>
+    <%= tx_mem_form.text_field :refdes, :size => 6, :placeholder => "U100" %>
+    <%#= tx_mem_form.label :part_number %>
+    <%#= tx_mem_form.text_field :part_number, :value => "15-11466-01" %>
+    <%= tx_mem_form.hidden_field :part_number, :value => "15-11466-01" %>
+  </td>
+<% end %>

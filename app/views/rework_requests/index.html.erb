@@ -1,0 +1,25 @@
+<h2 class="view-head">Rework Request Listing :<span class="sub-head">List of rework requests that are currently in the database</span></h2>
+<table>
+  <thead>
+    <th>Date Submitted</th>
+    <th>User</th>
+    <th>Project</th>
+    <th>Serial Number</th>
+    <th>Instructions</th>
+  </thead>
+
+<% @rework_requests.each do |rework_request| %>
+  <tr>
+    <td><%= rework_request.created_at.to_formatted_s(:short) %></td>
+    <td><%= rework_request.r2d2_debug.user.email %></td>
+    <td><%= rework_request.r2d2_debug.assembly.proper_name %></td>
+    <td><%= rework_request.r2d2_debug.serial_number %></td>
+    <td><%= rework_request.instructions %></td>
+    <td><%= link_to 'Show', rework_request, :class => "button" %></td>
+    <td><%#= link_to 'Edit', edit_r2d2_debug_path(r2d2_debug), :class => "button" %></td>
+    <td><%= link_to 'Destroy', rework_request, :confirm => 'Are you sure?', :method => :delete, :class => "button" %></td>
+  </tr>
+<% end %>
+</table>
+<br />
+<span>Add new rework request  </span><%= link_to 'Create Rework Request', new_rework_request_path %>

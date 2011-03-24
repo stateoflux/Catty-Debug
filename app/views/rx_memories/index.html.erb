@@ -1,0 +1,29 @@
+<h1>Listing rx_memories</h1>
+
+<table>
+  <tr>
+    <th>R2d2</th>
+    <th>Part number</th>
+    <th>Instance</th>
+    <th>Refdes</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @rx_memories.each do |rx_memory| %>
+  <tr>
+    <td><%= rx_memory.r2d2_id %></td>
+    <td><%= rx_memory.part_number %></td>
+    <td><%= rx_memory.instance %></td>
+    <td><%= rx_memory.refdes %></td>
+    <td><%= link_to 'Show', rx_memory %></td>
+    <td><%= link_to 'Edit', edit_rx_memory_path(rx_memory) %></td>
+    <td><%= link_to 'Destroy', rx_memory, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Rx memory', new_rx_memory_path %>

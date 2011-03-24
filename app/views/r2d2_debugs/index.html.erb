@@ -1,0 +1,23 @@
+  <h2 class="view-head">Debug Session Listing :<span class="sub-head">List of debug sessions that are currently in the database</span></h2>
+  <table>
+    <thead>
+      <th>User</th>
+      <th>Project</th>
+      <th>Serial Number</th>
+      <th>R2D2 Instance</th>
+    </thead>
+
+  <% @r2d2_debugs.each do |r2d2_debug| %>
+    <tr>
+      <td><%= r2d2_debug.user.email %></td>
+      <td><%= r2d2_debug.assembly.proper_name %></td>
+      <td><%= r2d2_debug.serial_number %></td>
+      <td><%= r2d2_debug.r2d2_instance %></td>
+      <td><%= link_to 'Show', r2d2_debug, :class => "button" %></td>
+      <td><%#= link_to 'Edit', edit_r2d2_debug_path(r2d2_debug), :class => "button" %></td>
+      <td><%= link_to 'Destroy', r2d2_debug, :confirm => 'Are you sure?', :method => :delete, :class => "button" %></td>
+    </tr>
+  <% end %>
+  </table>
+  <br />
+  <span>Add new debug session  </span><%= link_to 'Add Debug Session', new_r2d2_debug_path %>

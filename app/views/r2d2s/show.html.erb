@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Assembly:</b>
+  <%= @r2d2.assembly_id %>
+</p>
+
+<p>
+  <b>Part number:</b>
+  <%= @r2d2.part_number %>
+</p>
+
+<p>
+  <b>Instance:</b>
+  <%= @r2d2.instance %>
+</p>
+
+<p>
+  <b>Refdes:</b>
+  <%= @r2d2.refdes %>
+</p>
+
+
+<%= link_to 'Edit', edit_r2d2_path(@r2d2) %> |
+<%= link_to 'Back', r2d2s_path %>

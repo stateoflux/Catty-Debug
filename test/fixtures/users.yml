@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+mikki:
+  first_name: 'miccaela'
+  last_name: 'baird-rosecrans'
+  email: 'mrose@cisco.com'
+  admin: false
+
+wayne:
+  first_name: 'wayne'
+  last_name: 'montague'
+  email: 'waynem@cisco.com'
+  admin: true

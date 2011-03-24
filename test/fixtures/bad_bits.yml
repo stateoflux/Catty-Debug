@@ -1,0 +1,29 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  bad_bit: 1
+  r2d2_debugs: wayne_debug
+
+five:
+  bad_bit: 5
+  r2d2_debugs: wayne_debug
+
+ten:
+  bad_bit: 10 
+  r2d2_debugs: wayne_debug
+
+fifty:
+  bad_bit: 50 
+  r2d2_debugs: wayne_debug
+
+one_hundred:
+  bad_bit: 100 
+  r2d2_debugs: wayne_debug
+
+one_fifty:
+  bad_bit: 150 
+  r2d2_debugs: wayne_debug
+
+two_hundred:
+  bad_bit: 200 
+  r2d2_debugs: wayne_debug

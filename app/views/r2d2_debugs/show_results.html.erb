@@ -1,0 +1,34 @@
+<h2 class="results-header">Results</h2>
+<h3>Debug Summary</h3>
+<p class="summary copy">
+  This <span class="highlight"><%= @r2d2_debug.assembly.proper_name.capitalize %></span>
+  board has <span class="highlight"><%= @r2d2_debug.bad_bits.size %></span> 
+  defective bits on the <span class="highlight"><%= @r2d2_debug.interface %></span>
+  interface of the R2D2 @ <span class="highlight"><%= @r2d2_debug.assembly.r2d2s[@r2d2_debug.r2d2_instance].refdes %></span>
+  (instance #<span class="highlight"><%= @r2d2_debug.r2d2_instance %></span>)<br />
+</p>
+<!-- have controller build summary table? -->
+<div class="data-read">
+  <pre>Data Read           : 0x <%= @data_read_dump %></pre>
+  <p>Please refer to the table below for a mapping between the defective bit and the memory device</p>
+</div>
+<div class="mapping">
+  <h3>Mapping Table</h3>
+  <table cellspacing="0">
+    <thead>
+    <tr>
+      <th scope='col'>Bad Bit</th>
+      <th scope='col'>Ref Des</th>
+      <th>Mem Device #</th>
+      <th>PHY #</th>
+      <th>Cycle</th>
+      <th>Clock Edge</th>
+    </tr>
+    <tbody>
+    <%= render :partial => "bad_bit", :collection => @r2d2_debug.bad_bits %> 
+    </tbody>
+  </table>
+</div>
+<%= render :partial => "take_action" if @just_created %> 
+
+

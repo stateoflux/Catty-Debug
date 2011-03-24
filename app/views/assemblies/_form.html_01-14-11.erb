@@ -1,0 +1,69 @@
+<%= form_for(@assembly) do |f| %>
+  <% if @assembly.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@assembly.errors.count, "error") %> prohibited this assembly from being saved:</h2>
+      <ul>
+      <% @assembly.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+      <ul>
+      <% @assembly.r2d2s.each do |r2d2| %>
+        <% r2d2.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+          <ul>
+          <% r2d2.rx_memories.each do |rx_mem| %>
+            <% rx_mem.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          <% end %>
+          </ul>
+        <% end %>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :project_name %><br />
+    <%= f.text_field :project_name %>
+  </div>
+  <div class="field">
+    <%= f.label :revision %><br />
+    <%= f.text_field :revision %>
+  </div>
+  <div id="sub-assemblies">
+    <div class="r2d2">
+      <%= label_tag "num-of-instances", 'Number of R2D2s' %>
+      <%= text_field_tag "num_of_instances", nil, :id =>"num-of-instances"%>
+      <% 0.upto(7) do |i| %>
+        <h3>R2D2 <%= i %></h3> 
+        <%= label_tag "r2d2_#{i}-refdes", 'Refdes' %>
+        <%= text_field_tag "r2d2_#{i}[refdes]", nil, :id => "r2d2_#{i}-refdes" %>
+        <%= label_tag "r2d2_#{i}-part_number", 'Part Number' %>
+        <%= text_field_tag "r2d2_#{i}[part_number]", '08-0674-01', :id => "r2d2_#{i}-part_number" %>
+        <div class="memories">
+          <h4>RX Memories</h4>
+          <% 0.upto(3) do |j| %>
+            <% index = i * 4 + j %>
+            <%= label_tag "rx_mem#{index}-refdes", 'Refdes' %>
+            <%= text_field_tag "rx_mem#{index}[refdes]", nil, :id => "rx_mem#{index}-refdes" %>
+            <%= label_tag "rx_mem#{index}-part_number", 'Part Number' %>
+            <%= text_field_tag "rx_mem#{index}[part_number]", '15-11466-01', :id => "rx_mem#{index}-part_number" %><br />
+          <% end %>
+          <h4>TX Memories</h4>
+          <% 0.upto(3) do |j| %>
+            <% index = i * 4 + j %>
+            <%= label_tag "tx_mem#{index}-refdes", 'Refdes' %>
+            <%= text_field_tag "tx_mem#{index}[refdes]", nil, :id => "tx_mem#{index}-refdes" %>
+            <%= label_tag "tx_mem#{index}-part_number", 'Part Number' %>
+            <%= text_field_tag "tx_mem#{index}[part_number]", '15-11466-01', :id => "tx_mem#{index}-part_number" %><br />
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

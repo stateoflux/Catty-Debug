@@ -1,0 +1,28 @@
+resu -tR2D2_7
+ Test Description    :  {R2D2RXPB} -> R2D2_7
+ Time Of Run         : 2000/00/00 00:00:00
+ Error Code          :         26
+ Start Address       : 0x00000000
+ End Address         : 0x007FFFFF
+ Data Pattern        :       0x55
+ Device Number       :          8
+ Type of Test        :       BIST
+ Mode Type           :     Normal
+ Write timeout       :  0x0200
+ Read timeout        :  0x0200
+ Access Type         : BurstWriteRead
+ Run Count           :          1
+ Test Fail Count     :          1
+ Error Count         :          1
+ Fail Address        : 0x00004002
+ Data Expected       : 0x 5555 5555 5555 5555 5555 5555 5555 5555 5555 5555 5555
+                         5555 5555 5555 5555 5555 5555 5555 5555 5555 5555 5555
+                         5555 5555 5555 5555 5555 5555 5555 5555 5555 5555 5555
+                         5555 5555 5555
+ Data Read           : 0x 5555 5555 5555 5555 5555 5555 5555 5555 5555 5555 1555
+                         4555 5555 5555 5555 5555 5555 5555 5555 5555 5555 5555
+                         5555 5555 5555 5555 5555 55d5 5575 5555 5555 5555 5555
+                         5555 5555 5555
+ Error Message       : DATA_COMPARE_ERROR
+ Elapsed Time (msec) :      17042
+

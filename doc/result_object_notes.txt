@@ -1,0 +1,10 @@
+{
+  :r2d2_instance => 0
+  :interface => ?
+  :bad_bits => [
+    {:bad_bit => 215, :cycle => '1st', :phy_instance => 6, :edge => 'rising' :mem_refdes => "U26"},
+    {},
+    {}.....{}
+  ]
+}
+  

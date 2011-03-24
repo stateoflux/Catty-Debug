@@ -1,0 +1,25 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+rx_memory_0:
+  part_number: "15-11466-01"
+  instance: 0
+  refdes: "U28"
+  r2d2: r2d2_0
+
+rx_memory_1:
+  part_number: "15-11466-01"
+  instance: 1
+  refdes: "U173"
+  r2d2: r2d2_0
+
+rx_memory_2:
+  part_number: "15-11466-01"
+  instance: 2
+  refdes: "U29"
+  r2d2: r2d2_0
+
+rx_memory_3:
+  part_number: "15-11466-01"
+  instance: 3
+  refdes: "U172"
+  r2d2: r2d2_0

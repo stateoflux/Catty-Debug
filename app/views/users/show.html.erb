@@ -1,0 +1,12 @@
+<!-- <h2 class="view">Your Info</h2> -->
+<div class="user-info-wrapper">
+<div class="user-icon group"><img src="/images/user_info.png"></div>
+  <p class="user-info group">
+    <%= @user.first_name.capitalize %> <%= @user.last_name.capitalize %><br />
+    <%= @user.email %><br />
+  </p>
+</div>
+<%#= link_to "Edit Your Info", edit_user_path %>
+<%= render 'rework_requests' %>
+<%= render 'r2d2_debugs' %>
+

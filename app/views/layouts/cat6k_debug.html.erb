@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1" />
+    <title>R2D2 Memory Debug Tool</title>
+    <link rel="stylesheet" type="text/css" href="../../../../../css/reset.css" />
+    <!--<link rel="stylesheet" type="text/css" href="r2d2_debug.css" />-->
+    <%= stylesheet_link_tag :all %>
+    <script type="text/javascript" src="../../../../../jquery/jquery-1.4.2/jquery-1.4.2.min.js"></script>
+    <!--<script type="text/javascript" src="r2d2_debug.js"></script>-->
+    <%= javascript_include_tag :defaults %>
+    <!-- helper below has something to do with unobtrusive javascript and protection from CSRF attacks? -->
+    <%= csrf_meta_tag %>
+  </head>
+  <body>
+    <div class="container">
+      <!-- header -->
+      <!-- <div class="header"> -->
+        <img class="logo" src="images/logo.gif" alt="Cisco Systems Inc." />
+        <h1>Cat 6K Debug Page</h1>
+      <!-- </div> -->
+      <!-- <div class="clear-fix"></div> -->
+      <!-- Navigation bar -->
+      <div class="nav-container">
+        <ul class="nav-bar">
+          <li><a  href="#" title="Debug section">Debug</a></li>
+          <li><a href="#" title="Snake config section">Snake Config</a></li>
+          <li><a href="#" title="Rework section">Rework</a></li>
+          <li><a href="#" title="Reports section">Reports</a></li>
+          <li><a class="active" href="#" title="Admin section">Admin</a></li>
+        </ul>
+      </div>
+      <div class="clear-fix"></div>
+      <!-- Main content -->
+      <div>
+        <%= yield %>
+      </div>
+      <div class="clear-fix"></div>
+      <div class="footer"></div>
+    </div> <!-- end of container -->
+  </body>
+</html>
+    

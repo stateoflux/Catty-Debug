@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+rework_1:
+  board_name: 'Ringar' 
+  two_day_turn: true 
+  instructions: 'Replace device U28' 
+  bake: true
+
+rework_2:
+  board_name: 'Heathland' 
+  two_day_turn: false 
+  instructions: 'Replace device U218'
+  bake: false

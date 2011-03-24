@@ -1,0 +1,18 @@
+<h2 class="view-head">Your Rework Requests<span class="sub-head"></span></h2>
+  <table>
+    <thead>
+      <th>Date Submitted</th>
+      <th>Project</th>
+      <th>Serial Number</th>
+    </thead>
+
+  <% @rework_requests.each do |rework_request| %>
+    <tr>
+      <td><%= rework_request.created_at.getlocal.to_formatted_s(:long) %></td>
+      <td><%= rework_request.r2d2_debug.assembly.proper_name %></td>
+      <td><%= rework_request.r2d2_debug.serial_number %></td>
+      <td><%= link_to 'Show Details', rework_request, :class => "button" %></td>
+    </tr>
+  <% end %>
+  </table>
+

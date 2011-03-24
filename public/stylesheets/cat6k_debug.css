@@ -1,0 +1,649 @@
+/*@font-face {
+	font-family: 'M1clight';
+	src: url('/type/M-1c-fontfacekit/mplus-1c-light-webfont.eot?') format('eot'),
+	     url('/type/M-1c-fontfacekit/mplus-1c-light-webfont.woff') format('woff'), 
+             url('/type/M-1c-fontfacekit/mplus-1c-light-webfont.ttf') format('truetype'), 
+             url('/type/M-1c-fontfacekit/mplus-1c-light-webfont.svg#webfontH0SmxOLj') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'M1cregular';
+	src: url('/type/M-1c-fontfacekit/mplus-1c-regular-webfont.eot?') format('eot'),
+	     url('/type/M-1c-fontfacekit/mplus-1c-regular-webfont.woff') format('woff'), 
+             url('/type/M-1c-fontfacekit/mplus-1c-regular-webfont.ttf') format('truetype'), 
+             url('/type/M-1c-fontfacekit/mplus-1c-regular-webfont.svg#webfontH0SmxOLj') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}*/
+/*@font-face {
+	font-family: 'GreyscaleBasicBold';
+	src: url('/type/Greyscale-Basic-fontfacekit/Greyscale_Basic_Bold-webfont.eot') format('et'),
+             url('/type/Greyscale-Basic-fontfacekit/Greyscale_Basic_Bold-webfont.woff') format('woff'), 
+             url('/type/Greyscale-Basic-fontfacekit/Greyscale_Basic_Bold-webfont.ttf') format('truetype'), 
+             url('/type/Greyscale-Basic-fontfacekit/Greyscale_Basic_Bold-webfont.svg#webfontfJei6OMq') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}*/
+
+/*-----------------------------------------------------------------------------
+ * Color Notes
+ *
+ * light green for preloaded data: 
+ * red for active links
+ * blue for section headers
+ * blue for content headers (h2)
+ * grey for body background: #f7f7f7
+ * default dark grey for text: #333
+ * ----------------------------------------------------------------------------*/
+body {
+   background-color: #f7f7f7;
+   color: #333;
+   background: url("/images/page-bg.png") #f7f7f7 repeat center top;
+}
+
+.copy {
+  font-family: 'Trebuchet MS', sans-serif;
+}
+
+form input[type="text"],
+form textarea {
+  border:none; 
+  -border-radius: 2px;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -moz-box-shadow: inset 0 1px 2px #555;
+  -webkit-box-shadow: inset 0 1px 2px #555;
+  box-shadow: inset 0 1px 2px #555;
+  border-bottom: 1px solid #ccc;
+}
+
+img.login-logo {
+  display: block;
+}
+
+img.logo {
+  margin: 2px 0 0 12px;
+  float: left;
+  -border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+}
+
+a.active {
+  background-color: rgba(198, 1, 10, 0.9);
+  border: 1px solid rgba(198, 1, 10, 1);
+  color: #fff;
+}
+
+a:hover {
+  background-color: #bbb;
+  color: #333;
+}
+
+/* Common button styles */
+.button {
+  background-color: #eee;
+  /*background-color: rgba(192,243,151,0.8); */
+  border: 1px solid #bbb;
+  color: #333;
+  -border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+}
+
+a.button  {
+  float: left;
+  display: block;
+  text-decoration: none;
+  padding: 3px 8px;
+}
+
+a.button:hover {
+  background-color: rgba(192,243,151,0.8); 
+}
+  
+/* Submit Button Rules */
+form input[type="submit"] {
+  padding: 8px 15px;
+  font-weight: bold;
+  line-height: 1;
+  color: #fcfcfc;
+  border: none;
+  background-color: #222;
+  border: 1px solid #555;
+  -border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  background-image: -webkit-gradient(linear,0% 0%, 0% 100%, from(#555), to(#222)); 
+  background-image: -moz-linear-gradient(0 100% 90deg, #fff, #bbb);  
+}
+
+h1.app-header {
+  margin-top: 10px;
+  text-align: center;
+  padding-left: 10px;
+  color: rgba(16, 16, 16, 0.8);
+  text-shadow: 1px 1px 0 rgba(255, 255, 255, .8);
+}
+
+.label {
+  font-weight: bold;
+}
+
+thead th {
+  border: 1px solid #ccc;
+  background-color: #eee;
+}
+
+
+.odd {
+  background-color: #ccc;
+}
+
+/* NOTICE RULES */
+.notices {
+  text-align: center;
+  margin-bottom: 0;
+}
+
+.notice {
+  color: #4bad08; 
+  font-weight: bold;
+}
+
+.alert {
+  color: rgba(198, 1, 10, 0.9);
+  font-weight: bold;
+}
+
+div#error_explanation {
+  border: 1px solid rgba(198, 1, 10, 0.9);
+  background-color: white;
+  margin-bottom: 10px;
+}
+
+div#error_explanation h2 {
+  margin: 0;
+  padding: 2px 10px;
+  font-size: 18px;
+  color: white;
+  background-color: rgba(198, 1, 10, 0.9);
+}
+
+div.field_with_errors input[type="text"] {
+  border: 3px solid rgba(198, 1, 10, 0.9);
+}
+  
+
+
+/*-----------------------------------------------------------------------------
+ * NAVIAGATION SECTION 
+ *----------------------------------------------------------------------------*/
+.nav-container {
+  float: right;
+  margin-top: 0px;
+}
+.nav-container li {
+  display: inline;
+  margin-left: 10px;
+}
+
+.login-logout {
+  float: right;
+  width: 100%;
+  text-align: right;
+  margin: 0 10px 10px 10px;
+  padding: 0;
+  list-style: none;
+  color: #555;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, .8)
+}
+
+.login-logout ul {
+  margin-bottom: 0
+}
+
+li.greeting:after {
+  content: " |";  
+}
+
+.login-logout a {
+  color: #4bad08; 
+  text-decoration: underline;
+}
+
+.login-logout a:first-child {
+  padding-right: 8px;
+}
+
+.nav-bar {
+  float: right;
+  margin: 15px 10px 10px 0;
+  padding: 0;
+  list-style: none;
+}
+
+.nav-bar li a {
+  text-decoration: none;
+  /* my notes mention that I should render "a" elements as "block" so that I can increase it's target area */
+  /* but, if I do that then it looks like I need to float the "a" elements... */
+  /* display: block; */
+  padding: 5px 20px 5px 20px;
+  color: #333;
+  background-color: #eee;
+  border: 1px solid #bbb;
+  font-size: 14px; 
+  -border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+}
+
+.nav-bar li a.active {
+  background-color: rgba(198, 1, 10, 0.9);
+  border: 1px solid rgba(198, 1, 10, 1);
+  color: #fff;
+}
+.nav-bar li a:hover {
+  background-color: #bbb;
+  color: #333;
+}
+
+/*-----------------------------------------------------------------------------
+ * MAIN CONTENT WRAPPER
+ *----------------------------------------------------------------------------*/
+.main-content {
+  background-color: #fff;
+  margin-top: 5px;
+  -webkit-box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.3);
+  -border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  padding-bottom: 20px;
+}
+
+.main-content-bar {
+  background-color: #98b6ce;
+  border-bottom: 1px solid #777;
+  border-top-left-radius: 4px;
+  -webkit-border-top-left-radius: 4px;
+  -moz-border-radius-topleft: 4px;
+  border-top-right-radius: 4px;
+  -webkit-border-top-right-radius: 4px;
+  -moz-border-radius-topright: 4px;
+  /*background-image: -webkit-gradient(linear,0% 0%, 0% 100%, from(#555), to(#222)); 
+  background-image: -moz-linear-gradient(0 100% 90deg, #fff, #bbb);  */
+}
+.main-content-bar h1 {
+  margin: 0;
+  padding: 10px 0 6px 20px;
+}
+.main-content-bar p {
+  padding: 0 0 10px 20px;
+  margin-bottom: 0;
+}
+
+.main-content-bar h1, 
+.main-content-bar p, 
+.footer p {
+  text-shadow: 0 1px 0 rgba(255, 255, 255, .8)
+}
+
+/* wrapper around the content rendered by application */
+.dyn-content {
+  margin: 10px 20px
+}
+
+.dyn-content h2 {
+  margin-top: 18px;
+  font-size: 1.69em; /* 13px * 1.69 = 22px */
+  color: rgba(2, 93, 140, 1);
+  margin-bottom: 10px;
+  /*border-bottom: 3px solid #666;*/
+}
+
+/*-----------------------------------------------------------------------------
+ * LOGIN PAGE
+ * ----------------------------------------------------------------------------*/
+div.login-container {
+  width: 70%;
+  margin: 20px auto;
+  padding-bottom: 20px;
+}
+
+div.login-container table {
+  border-collapse: separate;
+  border-spacing: 14px;
+  border: 0px;
+}
+
+div.login-container table td {
+  width: 50%;
+  padding: 20px;
+  background-color: rgba(192,243,151,0.8);
+  font-size: 16px;
+  border: 1px solid #ccc;
+  -border-radius: 6px;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+}
+
+div.login-container table td fieldset {
+  margin-bottom: 0.8em;
+}
+
+fieldset.login-field label { 
+  display: block;
+  margin: 0 0 3px 0;
+  color: #444;
+  font-weight: bold;
+}
+
+fieldset.login-field input {
+  padding: 4px 6px;
+}
+
+div.login-container p {
+  text-align: center;
+}
+
+
+a.signup {
+  background-color: #ccc;
+  padding: 2px 4px;
+  -border-radius: 2px;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+}
+
+a.signup:hover {
+  background-color: rgba(198, 1, 10, 0.9);
+  color: #fcfcfc;
+}
+
+/*-----------------------------------------------------------------------------
+ * USER HOME PAGE
+ *----------------------------------------------------------------------------*/
+div.user-info-wrapper {
+  float: left;
+  padding-bottom: 0.5em;
+  border-bottom: 2px solid #bbb;
+  margin-bottom: 1em; 
+}
+
+div.user-icon {
+  float: left;
+  padding: 0 6px;
+  margin: 0 10px 0 5px;
+  background-color: #f3f3f3;
+  -border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+}
+
+p.user-info {
+  width: 800px;
+  float: left;
+  margin: 10px 0 0 0;
+}
+
+
+/*-----------------------------------------------------------------------------
+ * ADMIN PAGES 
+ *-----------------------------------------------------------------------------*/
+table.project {
+  width: 50%
+}
+
+h3.view {
+  font-size: 18px;
+  color: rgba(198, 1, 10, 1);
+}
+
+/* ADMIN SECTION */
+table.project, table.r2d2-complex td {
+  border: 1px solid #ccc;
+}
+
+table.r2d2-complex tr.r2d2 td {
+  background-color: #eee;
+}
+
+table.r2d2-complex tr.mem td {
+  text-align: center;
+}
+
+/* quick hack for the r2d2 refdes cell */
+.center-cell { 
+  text-align: center;
+}
+
+table.r2d2-complex td.label, table.r2d2-complex label {
+  color: #556270;
+}
+
+
+/*-----------------------------------------------------------------------------
+ * DEBUG TOOL PAGE
+ *---------------------------------------------------------------------------*/
+h2.tool-header {
+  border: none;
+  padding: 0;
+}
+
+p.tool-desc {
+  width: 22%;
+  float: right;
+  margin: 0 0 0.5em 0;
+  padding: 1em;
+  background-color: #222;
+  color: #f3f3f3;
+  -border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+}
+
+.new-user-form,
+.debug-form,
+.rework-form {
+  width: 70%;
+  padding: 1em;
+  /*background: #fcfcfc;*/
+  background: #f2f2f2;
+  border: 3px solid #bbb;
+  -border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+}
+
+.debug-form {
+  float: left;
+}
+
+.new-user-form fieldset,
+.debug-form fieldset,
+.rework-form fieldset {
+ margin-bottom: 0.8em;
+}
+
+/* Removes the necessary botton margin on the top level fieldset */
+.debug-form fieldset.fields-wrapper,
+.rework-form fieldset.fields-wrapper {
+  margin-bottom: 0;
+}
+
+/* Removes the unnecessary botton margin on the last fieldset */
+.debug-form fieldset:last-child,
+.rework-form fieldset:last-child {
+  margin-bottom: 0;
+}
+
+.new-user-form fieldset label,
+.debug-form fieldset label,
+.rework-form fieldset fieldset label,
+.rework-form fieldset label {
+  display: block;
+  margin: 0 0 3px 0;
+  color: #444;
+  font-weight: bold;
+}
+
+.new-user-form fieldset input,
+.debug-form fieldset input,
+.debug-form fieldset textarea,
+.rework-form fieldset fieldset input,
+.rework-form fieldset textarea {
+  padding: 4px 6px;
+}
+
+.debug-form fieldset textarea {
+  width: 96%;
+  font-family: Monaco, 'Courier New', 'DejaVu Sans Monaco', monospace;
+  font-size: 0.75em;
+}
+
+/*-----------------------------------------------------------------------------
+ * Results Page  
+ * ---------------------------------------------------------------------------*/
+h2.results-header {
+  margin-bottom: 1em; 
+  border-bottom: 3px solid #666;
+}
+
+h3 {
+  font-size: 1.38em; /* 13px * 1.38 = 18px */ 
+}
+
+/* --- Summary section rules --- */
+p.summary {
+  /*color: #555;*/
+}
+
+span.highlight {
+  color: #A0152E;
+  font-weight: bold;
+}
+
+div.data-read {
+  margin: 0 0 2em 0;
+  margin-right: 35%;
+}
+
+div.data-read pre {
+  padding: 1em;
+  background-color: #f5f5ff; 
+  border: 1px solid #ccc;
+  color: #555;
+  font-family: Monaco, 'Courier New', 'DejaVu Sans Monaco', monospace;
+  font-size: 0.82em;
+  margin: 0 0 1em 0;
+}
+
+div.data-read pre .bad-bit {
+  color: #ee0000;
+  /*font-weight: bold;*/
+}
+
+/* --- Mapping Table --- */
+div.mapping {
+  padding-bottom: 7px;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 20px;
+}
+
+/*  Call to action --- */
+div.choose {
+  width: 47%;
+  float: left;
+  padding: 10px;
+}
+
+div.rework-choice {
+  border-right: 1px solid #ccc;
+}
+
+div.rework-choice .button {
+  margin-left: 35%;
+}
+
+div.debug-choice .button {
+  margin: 12% 0 0 35%;
+}
+
+div.choose p {
+  text-align: center;
+  font-size: 1.23em;
+}
+
+
+/*-----------------------------------------------------------------------------
+ * Rework Request Page  
+ * ---------------------------------------------------------------------------*/
+.rework-form {
+  width: 70%;
+}
+
+.rework-form .preloaded fieldset fieldset {
+  width: 33.3%;
+  float: left;
+}
+
+.rework-form .preloaded {
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ccc;
+  /*background-color: rgba(192,243,151,0.8);*/
+}
+.rework-form .preloaded fieldset fieldset input {
+  background-color: rgba(192,243,151,0.8); 
+}
+
+p.rework-contact-info {
+  width: 70%;
+  font-size: 1.1em;
+  line-height: 1.7;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 18px;
+}
+
+p.rework-req-info {
+  width: 70%;
+  padding: 1em;
+  -border-radius: 2px;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+}
+
+p.rework-req-info {
+  background-color: rgba(192,243,151,0.8);
+}
+
+/*-----------------------------------------------------------------------------
+ * Validation  
+ * ---------------------------------------------------------------------------*/
+
+/*-----------------------------------------------------------------------------
+ * Footer 
+ * ---------------------------------------------------------------------------*/
+.footer {
+  margin-top: 5px;
+}
+.footer p {
+  padding: 10px 0 20px 20px;
+  color: #555;
+}
+
+/*-----------------------------------------------------------------------------
+ * Self-clear floats
+ * ---------------------------------------------------------------------------*/
+.group:after {
+  content: ".";
+  display: block;
+  height: 0;
+  clear:both;
+  visibility: hidden;
+}

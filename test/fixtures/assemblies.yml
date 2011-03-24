@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+ringar_3:
+  project_name: 'Ringar'
+  revision: 3
+  num_of_r2d2s: 8
+
+ringar_5:
+  project_name: 'Ringar'
+  revision: 5
+  num_of_r2d2s: 8

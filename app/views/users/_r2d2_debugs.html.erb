@@ -1,0 +1,22 @@
+<h2 class="view-head">Your Debug Sessions<span class="sub-head"></span></h2>
+  <table>
+    <thead>
+      <th>Date Submitted</th>
+      <th>Project</th>
+      <th>Serial Number</th>
+      <th>R2D2 Instance</th>
+      <th>Memory Interface</th>
+    </thead>
+
+  <% @r2d2_debugs.each do |r2d2_debug| %>
+    <tr>
+      <td><%= r2d2_debug.created_at.getlocal.to_formatted_s(:long) %></td>
+      <td><%= r2d2_debug.assembly.proper_name %></td>
+      <td><%= r2d2_debug.serial_number %></td>
+      <td><%= r2d2_debug.r2d2_instance %></td>
+      <td><%= r2d2_debug.interface %></td>
+      <td><%= link_to 'Show Details', r2d2_debug, :class => "button" %></td>
+    </tr>
+  <% end %>
+  </table>
+

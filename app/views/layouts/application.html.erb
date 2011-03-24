@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1" />
+    <title>R2D2 Memory Debug Tool</title>
+    <%= stylesheet_link_tag "reset", "text", "960", "layout", "cat6k_debug" %>
+    <!--<script type="text/javascript" src="../../../../../jquery/jquery-1.4.2/jquery-1.4.2.min.js"></script>-->
+    <!--<script type="text/javascript" src="r2d2_debug.js"></script>-->
+    <%= javascript_include_tag :defaults %>
+    <!-- helper below has something tor do with unobtrusive javascript and protection from CSRF attacks? -->
+    <%= csrf_meta_tag %>
+  </head>
+  <body>
+    <div class="container_16" class="group">
+      <!-- Logo -->
+      <img class="grid_2 logo" src="/images/cisco_logo.jpg" alt="Cisco Systems Inc." />
+      <!-- Navigation bar -->
+      <div class="grid_14 nav-container group">
+        <div class="login-logout group">
+          <ul>
+            <% if current_user %>
+              <li class="greeting">Greetings <%= link_to current_user.first_name.capitalize, current_user %></li>
+              <li><%= link_to "log out", logout_path %></li>
+            <% end %>
+          </ul>
+        </div>
+        <!-- changes certain elements based on the active controller -->
+        <% case params[:controller] %>
+        <% when 'users' %>
+            <% user = true %>
+            <% header = 'Home Base' %>
+            <% sub_header = 'Check the status of your rework requests below or navigate to the other sections using the buttons above.' %>
+          <% when 'r2d2_debugs' %>
+            <% debug = true %>
+            <% header = 'Debug Section' %>
+            <% sub_header = 'Here are a few tools which you can use to debug certain offline diag failures.  Only R2D2 packet buffer test failures are currently supported' %>
+          <% when 'rework_requests' %>
+            <% debug = true %>
+            <% header = 'Rework Section' %>
+            <% sub_header = 'Use the form below to initiate your rework request' %>
+          <% when 'assemblies' %>
+            <% admin = true %>
+            <% header = 'Admin Space' %>
+            <% sub_header = '' %>
+        <% end %>
+        <ul class="nav-bar group">
+          <li><%= link_to 'Home', current_user, :class => user ? 'active' : nil %></li>
+          <li><%= link_to "Debug", new_r2d2_debug_path, :class => debug ? 'active' : nil %></li>
+          <li><a href="#" title="Snake config section">Snake Config</a></li>
+          <li><a href="#" title="Rework section">Rework</a></li>
+          <li><a href="#" title="Reports section">Reports</a></li>
+          <% if current_user.admin %>
+            <li><%= link_to "Admin", assemblies_path, :class=> admin ? 'active' : nil %></li>
+          <% end %>
+        </ul>
+      </div>
+      <!-- Main content -->
+      <div class="grid_16 main-content">
+        <div class="main-content-bar">
+        <h1><%= header %></h1>
+        <p><%= sub_header %></p>
+        </div>
+        <div class="dyn-content">
+          <!-- Warning/Error messages from application --> 
+          <%= content_tag :p, notice, :class => 'notice' if notice.present? %>
+          <%= content_tag :p, alert, :class => 'alert' if alert.present? %>
+          <%= yield %>
+          <%#= debug session.inspect %>
+        </div>
+      </div>
+      <div class="grid_16 footer">
+        <p>Please contact Wayne Montague (wmontagu@cisco.com) for any questions regarding this app</p>
+      </div>
+    </div> <!-- end of container -->
+  </body>
+</html>
+    

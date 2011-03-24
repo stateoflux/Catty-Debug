@@ -1,0 +1,13 @@
+<div class="choose group rework-choice">
+  <p>
+    Would you like to send this board out for rework?<br /> 
+    Clicking the link below will take you to the rework request page
+  </p>
+  <!-- <button class="button" name="button">Rework</button> -->
+  <%= link_to 'Request Rework', new_rework_request_path, :class => 'button'%>
+</div>
+<div class="choose group debug-choice">
+  <p> or would you rather debug another board?</p>
+  <%= link_to 'Debug Another', new_r2d2_debug_path, :class => 'button' %>
+</div>
+
