@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110307055638) do
+ActiveRecord::Schema.define(:version => 20110324071930) do
 
   create_table "assemblies", :force => true do |t|
     t.string   "project_name"
