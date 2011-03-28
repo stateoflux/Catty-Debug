@@ -5,3 +5,8 @@
 #
 #   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
 #   Mayor.create(:name => 'Daley', :city => cities.first)
+json = ActiveSupport::JSON.decode(File.read('db/seeds/assemblies.json'))
+ 
+ json.each do |a|
+   Assembly.create!(a['assembly'])
+ end
