@@ -16,7 +16,7 @@ json.each do |a|
    assembly.revision = a['assembly']['revision']
    for r2d2_json in a['assembly']['r2d2s'] do
      r2d2 = R2d2.new
-     r2d2.instance = r2d2_json['interface'] 
+     r2d2.instance = r2d2_json['instance'] 
      r2d2.part_number = r2d2_json['part_number']
      r2d2.refdes = r2d2_json['refdes'] 
      for memory_json in r2d2_json['tx_memories'] do 
@@ -29,33 +29,3 @@ json.each do |a|
    end
    assembly.save
 end
-
-=begin
-def build_r2d2s(r2d2s_json)
-   r2d2s = []
-   for r2d2_json in r2d2s_json do
-     r2d2 = R2d2.new
-     r2d2.instance = r2d2_json['interface'] 
-     r2d2.part_number = r2d2_json['part_number']
-     r2d2.refdes = r2d2_json['refdes'] 
-     r2d2.tx_memories = self.build_memories(:tx, r2d2_json['tx_memories'])
-     r2d2.rx_memories = self.build_memories(:rx, r2d2_json['rx_memories'])
-     r2d2s << r2d2
-   end
-   r2d2s
-end
-
-def build_memories(interface, memories_json)
-   memories = []
-   for memory_json in memories_json.each do 
-     if (interface == :tx)
-       memories << TxMemory.new(memory_json)
-    elsif (interface == :rx)
-       memories << RxMemory.new(memory_json)
-    else
-      return false
-     end
-   end
-   memories
-end
-=end
