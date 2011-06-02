@@ -1,10 +1,10 @@
 class ReworkRequestsController < ApplicationController
+  # Ensures that a rework_request object cannot be created, destroyed or editted
+  # unless the user has logged in
+  before_filter :require_login
   # Ensures that only an admin can index or destroy a
   # rework request 
   before_filter :admin?, :only => [:index, :destroy]
-  # Ensures that a rework_request object cannot be created, destroyed or editted
-  # unless the user has logged in
-  # before_filter :authenticate, :except => [:index, :show]
 
   def index
     #if current_user.admin
@@ -19,16 +19,28 @@ class ReworkRequestsController < ApplicationController
 
   def new
     @rework_request = ReworkRequest.new
+    # @debug_session provides the view access to it's associated debug session 
+    # model if there is one
+    @debug_session = R2d2Debug.find(session[:debug_id]) if session[:debug_id]
   end
 
   def create
     @rework_request = current_user.rework_requests.new(params[:rework_request])
-    @rework_request.r2d2_debug = current_user.r2d2_debugs.first
-
+    if session[:debug_id]
+      @rework_request.r2d2_debug_id = session[:debug_id] 
+      session[:debug_id] = nil
+    end
     if @rework_request.save
-      render 'show', :notice => 'Rework request was successfully submitted.' 
+      respond_to do |format|
+        format.html { render 'show', :notice => 'Rework request was successfully submitted.' }
+        format.js
+      end
     else
-      render :action => "new"
+      respond_to do |format|
+        logger.debug "debug: rework_request_errors -> #{@rework_request.errors}"
+        format.html { render :action => "new" }
+        format.js { render 'create_fail' } 
+      end
     end
   end
 

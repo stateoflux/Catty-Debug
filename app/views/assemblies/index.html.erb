@@ -1,4 +1,4 @@
-  <h2 class="view-head">Project Listing :<span class="sub-head">List of projects that are currently in the database</span></h2>
+  <h2 class="view-head">Board Listing<!--: <span class="sub-head">List of boards that are currently in the database</span> --></h2>
   <table>
     <thead>
       <th>Project name</th>
@@ -13,9 +13,61 @@
       <td><%= assembly.num_of_r2d2s %></td>
       <td><%= link_to 'Show', assembly, :class => "button" %></td>
       <td><%= link_to 'Edit', edit_assembly_path(assembly), :class => "button" %></td>
-      <td><%= link_to 'Destroy', assembly, :confirm => 'Are you sure?', :method => :delete, :class => "button" %></td>
+      <td><%= link_to 'Delete', assembly, :confirm => 'Are you sure?', :method => :delete, :class => "button" %></td>
     </tr>
   <% end %>
   </table>
   <br />
-  <span>Add new project  </span><%= link_to 'Add Project', new_assembly_path %>
+  <%= link_to 'Add New Board', new_assembly_path, :class => "button" %>
+  <br />
+  <div class="rule"></div>
+  <h2 class="view-head">User Listing<!--: <span class="sub-head">List of users that are currently in the database</span> --></h2>
+  <table>
+    <thead>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Email ID</th>
+      <th>Admin?</th>
+    </thead>
+
+  <% @users.each do |user| %>
+    <tr>
+      <td><%= user.first_name.capitalize %></td>
+      <td><%= user.last_name.capitalize %></td>
+      <td><%= user.email %></td>
+      <td><%= user.admin %></td>
+      <td><%= link_to 'Display Sessions', user, :class => "button" %></td>
+      <td><%= link_to 'Edit', edit_user_path(user), :class => "button" %></td>
+      <td><%= link_to 'Delete', user, :confirm => 'Are you sure?', :method => :delete, :class => "button" %></td>
+    </tr>
+  <% end %>
+  </table>
+  <br />
+  <%= link_to 'Add New User', new_user_path, :class => "button" %>
+  <br />
+  <div class="rule"></div>
+  <h2 class="view-head">Debug Session Listing<!--: <span class="sub-head">The 10 most recent debug sessions</span>--></h2>
+  <table>
+    <thead>
+      <th>Date Submitted</th>
+      <th>User</th>
+      <th>Project</th>
+      <th>Serial Number</th>
+      <th>R2D2 Instance</th>
+    </thead>
+
+  <% @r2d2_debugs.each do |r2d2_debug| %>
+    <tr>
+      <td><%= r2d2_debug.created_at.getlocal.to_formatted_s(:short) %></td>
+      <td><%= r2d2_debug.user.email if r2d2_debug.user %></td>
+      <td><%= r2d2_debug.assembly.proper_name if r2d2_debug.assembly %></td>
+      <td><%= r2d2_debug.serial_number %></td>
+      <td><%= r2d2_debug.r2d2_instance %></td>
+      <td><%= link_to 'Show', r2d2_debug, :class => "button" %></td>
+      <td><%#= link_to 'Edit', edit_r2d2_debug_path(r2d2_debug), :class => "button" %></td>
+      <td><%= link_to 'Delete', r2d2_debug, :confirm => 'Are you sure?', :method => :delete, :class => "button" %></td>
+    </tr>
+  <% end %>
+  </table>
+  <br />
+  <%= link_to 'See more debug sessions', r2d2_debugs_path, :class => "button" %>

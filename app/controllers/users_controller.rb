@@ -1,9 +1,8 @@
 class UsersController < ApplicationController
-  # Ensures that only an admin can list or delete users
-  before_filter :admin?, :only => [:destroy, :index]
   # Ensures that a user can only edit his own information
-  before_filter :authenticate, :only => [:edit, :update, :show]
-
+  before_filter :require_login, :only => [:edit, :update, :show]
+  # Ensures that only an admin can list or delete users
+  before_filter :admin?, :only => [:destroy, :index, :new, :create]
 
   def index
     logger.debug "response from admin? #{admin?}"
@@ -12,8 +11,9 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
+    render 'new'
     # uses the session layout
-    render 'new', :layout => 'sessions'
+    #render 'new', :layout => 'sessions'
   end
 
   def create
@@ -25,7 +25,9 @@ class UsersController < ApplicationController
     @user.admin = params[:user]["admin"] == "true" ? true : false 
 
     if @user.save
-      redirect_to login_path, :notice => "You're In! Now just log in with the email id you just provided" 
+      redirect_to assemblies_path, :notice => "User was successfully added" 
+      #redirect_to users_path, :notice => "User was successfully added" 
+      #redirect_to login_path, :notice => "You're In! Now just log in with the email id you just provided" 
     else
       render :action => "new", :layout => 'sessions', :notice => 'Are you sure you entered your information correctly? Please try again.'
       #redirect_to new_user_path, :alert => 'Are you sure you entered your information correctly? Please try again.'
@@ -36,11 +38,12 @@ class UsersController < ApplicationController
     if params[:id] == current_user.id.to_s
       @user = current_user
       @r2d2_debugs = current_user.r2d2_debugs
-      @rework_requests = current_user.rework_requests
+      #@rework_requests = current_user.rework_requests
     elsif admin? 
       @user = User.find(params[:id]) 
-      @r2d2_debugs = R2d2_debugs.all
-      @rework_requests = ReworkRequests.all
+      @r2d2_debugs = @user.r2d2_debugs 
+      #@r2d2_debugs = R2d2Debug.all
+      #@rework_requests = ReworkRequest.all
     end
     # needed a way to tell the r2d2_debug & rework requests views
     # that they were initiated from the user's home page.  This
@@ -71,7 +74,8 @@ class UsersController < ApplicationController
 
     if @user.update_attributes(params[:user])
       if current_user.admin
-        redirect_to users_path, :notice => 'User was successfully updated.'
+        redirect_to assemblies_path, :notice => 'User was successfully updated.'
+        #redirect_to users_path, :notice => 'User was successfully updated.'
       else
         redirect_to @user, :notice => 'User was successfully updated.'
       end
@@ -82,7 +86,8 @@ class UsersController < ApplicationController
 
   def destroy
     @user = User.find(params[:id])
-    redirect_to users_path, :notice => 
+    redirect_to assemblies_path, :notice => 
+    #redirect_to users_path, :notice => 
     if @user.destroy 
       'User was successfully deleted.' 
     else

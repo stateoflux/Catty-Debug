@@ -1,7 +1,7 @@
 class ReworkRequest < ActiveRecord::Base
   validates :board_name, :presence => true,
-                         :length => {:within => 3..20},
-                         :format => {:with => /^[A-Z]{1,1}[\w-]{1,18}[\D]$/}
+                         :length => {:within => 3..20}
+                         #:format => {:with => /^[A-Z]{1,1}[\w-]{1,18}[\D]$/}
   validates :turn_around, :presence => true,
                           :length => {:within => 8..9},
                           :format => {:with => /^\d-\d\sdays$/}
@@ -17,4 +17,7 @@ class ReworkRequest < ActiveRecord::Base
                           :format => {:with => /^(?:yes|no)$/}
 
   belongs_to :r2d2_debug
+  
+  # stores the array of serial numbers as a string in the database
+  serialize :serial_numbers
 end

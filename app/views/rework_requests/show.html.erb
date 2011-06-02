@@ -1,16 +1,5 @@
 <h2>Rework Request</h2>
-<p class="rework-contact-info">
-  This rework request has been submitted to Sam Rodriguez and will be processed
-  as soon as possible upon receipt.
-  To check status, just log into the web app and go to your home page. 
-  For questions, please contact: </br>
-  <span class="label">Sam Rodriguez at 7-3220, pager 800-796-7363 pin 1050441</span></br>
-  <span class="label">Backup contact: </span>David Pawelczak 525-6455 (Lab) or 526-5587, pager 388-3007<br />
-  <span class="label">Emergency contact: </span>Larry Kan 525-6653<br />
-  All boards must be removed from their tray before being given to Sam for processing.<br />
-  Deliver all assemblies to Sam's cubicle @ <span class="label">SJ-04 : 3rd floor : F3-10 no later than 2pm</span><br />
-  You will be notified once the board is ready for pickup<br />
-</p>
+<p class="highlight">Below is the information you submitted as part of this rework request</p>
 <p class="rework-req-info">
   <span class="label">Requestor: </span><%= @rework_request.r2d2_debug.user.first_name + " " + @rework_request.r2d2_debug.user.last_name %><br />
   <span class="label">Turn around on this request should be: </span><%= @rework_request.turn_around %><br />
@@ -22,12 +11,42 @@
   <span class="label">Is this board to be X-Ray'd after rework? </span><%= @rework_request.xray %><br /><br />
   Please send all removed components with these rework instructions back to Cisco<br />
 </p>
+<div class="rule"></div>
+<div class="rework-contact-info group">
+  <p>
+    Your point of contact for this rework request is Sam Rodriguez (his contact information is displayed on the right).
+    This rework request has been submitted to Sam and will be processed as soon as possible upon receipt.
+    To check status of this request, just log into this web app and go to your home page. 
+    Please follow the checklist below before delivering the board to Sam.
+  </p>
+  <ol>
+    <li>Print the email you received after submitting this request</li>
+    <li>Remove the board from it's tray</li>
+    <li>Place board into an ESD bag</li>
+    <li>Tape the email printout on the top of the ESD bag</li>
+  </ol>
+  <p>
+  Deliver all assemblies to Sam's cubicle @ <br />
+  <span class="highlight">SJ-04 : 3rd floor : F3-10 no later than 2pm.</span><br />
+  You will be notified once the board is ready for pickup.<br />
+  </p>
+</div>
+<div class="contact-box group">
+  <h3>Rework Contacts</h3>
+  <p>
+    For questions, please contact: <br />
+    <span class="label">Main Contact</span><br />
+    Sam Rodriguez: 527-3220,<br /> 
+    pager 800-796-7363 pin 1050441</br>
+    <span class="label">Backup contact </span><br />
+    David Pawelczak: 525-6455 (Lab) or 526-5587,<br />
+    pager 388-3007<br />
+    <span class="label">Emergency contact</span><br />
+    Larry Kan 525-6653<br />
+  </p>
+</div>
+<div class="rule group"></div>
 <div>
-<% unless session[:from_user_page] %>
-  <%= link_to 'Debug another board', new_r2d2_debug_path %> | <%= link_to 'Go back to home page', current_user %>
-<% else %>
-  <% session[:from_user_page] = nil %>
-  <%= link_to 'Go back to home page', current_user %>
-<% end %>
+<%= link_to 'Debug another board', new_r2d2_debug_path %> | <%= link_to 'Go back to home page', current_user %>
 </div>
 

@@ -1,0 +1,4 @@
+$('#r2d2-debug-input').fadeOut('slow', function() {
+    $("<%= escape_javascript render :file => 'r2d2_debugs/show_results' %>")
+    .insertAfter('#r2d2-debug-input')
+}); 

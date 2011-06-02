@@ -11,7 +11,7 @@
   <% @r2d2_debugs.each do |r2d2_debug| %>
     <tr>
       <td><%= r2d2_debug.created_at.getlocal.to_formatted_s(:long) %></td>
-      <td><%= r2d2_debug.assembly.proper_name %></td>
+      <td><%= r2d2_debug.assembly.proper_name if r2d2_debug.assembly %></td>
       <td><%= r2d2_debug.serial_number %></td>
       <td><%= r2d2_debug.r2d2_instance %></td>
       <td><%= r2d2_debug.interface %></td>

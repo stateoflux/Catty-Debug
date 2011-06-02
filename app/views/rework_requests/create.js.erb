@@ -1,0 +1,4 @@
+$('#rework-request-input').fadeOut('slow', function() {
+    $("<%= escape_javascript render :file => 'rework_requests/show' %>")
+    .insertAfter('#rework-request-input')
+}); 

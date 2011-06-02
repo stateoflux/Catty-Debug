@@ -20,6 +20,10 @@ class User < ActiveRecord::Base
   has_many :rework_requests, :through => :r2d2_debugs,
                              :order => 'created_at DESC'
 
+  # Default Sort Order
+  default_scope order('users.last_name')
+
+
   def self.authenticate(email)
     find_by_email(email)
   end

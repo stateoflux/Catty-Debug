@@ -1,11 +1,15 @@
-<h2 class="tool-header">R2D2 External Packet Buffer Debug Tool</h2>
-<p class="tool-desc">
-  This tool will help you pin-point a defective R2D2 packet buffer memory 
-  without the pain of manually mapping the failing nibble to the actual physical 
-  device. All you have to do is copy and paste your r2d2_6 or r2d2_7 failure 
-  result in the text box below, click submit and the tool will display
-  a table of defective bits and their corresponding memory device reference
-  designators.
-</p>
-<%= render 'form' %>
+<div id="r2d2-debug-input">
+  <h2 class="tool-header">R2D2 External Packet Buffer Debug Tool</h2>
+  <p class="tool-desc">
+    This tool will help you pin-point a defective R2D2 packet buffer memory 
+    without the pain of manually mapping the failing nibble to the actual physical 
+    device. All you have to do is copy and paste your r2d2_6 or r2d2_7 failure 
+    result in the text box to your left, click submit and the tool will display
+    a table of defective bits and their corresponding memory device reference
+    designators.
+  </p>
+  <%= render 'form' %>
+</div>
+<div id="error-msgs"></div>
+<div id="r2d2-debug-result"></div>
 

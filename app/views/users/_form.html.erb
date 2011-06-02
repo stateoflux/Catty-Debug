@@ -1,4 +1,4 @@
-<%= form_for(@user, :html => {:class => "new-user-form"}) do |f| %>
+<%= form_for(@user, :html => {:class => "user-form"}) do |f| %>
   <% if @user.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
@@ -16,15 +16,15 @@
       </p>
     <% end %>
     <%= f.label :first_name, 'Your First Name:' %>
-    <%= f.text_field :first_name %>
+    <%= f.text_field :first_name, :placeholder => 'John'%>
   </fieldset>
   <fieldset>
     <%= f.label :last_name, 'Your Last Name:' %>
-    <%= f.text_field :last_name %>
+    <%= f.text_field :last_name, :placeholder => 'Chambers'%>
   </fieldset>
   <fieldset>
     <%= f.label :email, 'Your Email:' %>
-    <%= f.text_field :email %>
+    <%= f.text_field :email, :placeholder => 'jc@cisco.com' %>
   </fieldset>
   <% if @user.new_record? %>
     <%= f.hidden_field :admin, :value => false %>
@@ -36,6 +36,7 @@
     </fieldset>
   <% end %>
   <div class="actions">
-    <%= f.submit %>
+    <%= submit_tag "Submit" %>
+    <%#= f.submit %>
   </div>
 <% end %>

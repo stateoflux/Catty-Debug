@@ -1,4 +1,4 @@
-<%= form_for(@rework_request, :html => {:class => 'rework-form'}) do |f| %>
+<%= form_for(@rework_request, :remote => true, :html => {:class => 'rework-form'}) do |f| %>
   <% if @rework_request.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@rework_request.errors.count, "error") %> prohibited this rework_request from being saved:</h2>
@@ -27,15 +27,15 @@
     <fieldset class="fields-wrapper">
       <fieldset class="group">
         <%= f.label :board_name %>
-        <%= f.text_field :board_name, :value => current_user.r2d2_debugs.first.assembly.project_name, :size => 20 %>
+        <%= f.text_field :board_name, :value => (@debug_session.assembly.proper_name if @debug_session), :size => 20 %>
       </fieldset>
       <fieldset class="group">
         <%= label_tag 'assembly_number', 'Assembly Number:' %>
-        <%= text_field_tag 'assembly_number', current_user.r2d2_debugs.first.assembly.assembly_number %>
+        <%= text_field_tag 'assembly_number', (@debug_session.assembly.assembly_number if @debug_session) %>
       </fieldset>
       <fieldset class="group">
         <%= label_tag 'serial_number', 'Serial Number:' %>
-        <%= text_field_tag 'serial_number', current_user.r2d2_debugs.first.serial_number %>
+        <%= text_field_tag 'serial_number', (@debug_session.serial_number if @debug_session) %>
       </fieldset>
     </fieldset>
   </div>
@@ -45,7 +45,7 @@
   </fieldset>
   <fieldset>
     <%= f.label :instructions, 'Rework Instructions:' %>
-    <%= f.text_area :instructions, :size => "80x10", :value => "Replace RLDRAM @ " + current_user.r2d2_debugs.first.get_unique_refdes %>
+    <%= f.text_area :instructions, :size => "80x10", :value => ("Replace RLDRAM @ " + @debug_session.get_unique_refdes if @debug_session) %>
   </fieldset>
   <fieldset>
     <%= f.label :xray, "X-Ray'd Upon Completion?" %>

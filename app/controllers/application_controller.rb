@@ -13,7 +13,7 @@ protected
 
   # Filter method to enforce a login requirement
   # Apply as a before_filter on any controller you want to protect
-  def authenticate
+  def require_login
     logged_in? ? true : access_denied
   end
 
@@ -35,6 +35,6 @@ protected
   helper_method :logged_in?
 
   def access_denied
-    redirect_to login_path, :notice => "Please log in to continue" and return false
+    redirect_to login_path, :notice => "You must be logged in to continue" and return false
   end
 end

@@ -1,10 +1,11 @@
 class R2d2DebugsController < ApplicationController
+  # Ensures that a r2d2_debug object cannot be created, destroyed or editted
+  # unless the user has logged in
+  #before_filter :authenticate, :except => [:index, :show]
+  before_filter :require_login
   # Ensures that only an admin can destroy a
   # r2d2 debug session
   before_filter :admin?, :only => [:index, :destroy]
-  # Ensures that a r2d2_debug object cannot be created, destroyed or editted
-  # unless the user has logged in
-  # before_filter :authenticate, :except => [:index, :show]
 
   def index
     if current_user.admin
@@ -28,31 +29,35 @@ class R2d2DebugsController < ApplicationController
   def create
     @r2d2_debug = current_user.r2d2_debugs.new(params[:r2d2_debug])
       unless params[:test_result] == ""
-        @r2d2_debug.extract_and_set_attr params[:test_result]
-
-        # Baseboards only have 4 R2D2s, therefore redirect to new and display error if
-        # r2d2 device number is greater than 4
-        if @r2d2_debug.r2d2_instance.to_i > 3 && @r2d2_debug.assembly.project_name != "Senga"
-          wrong_board = true
-        elsif @r2d2_debug.assembly.project_name == 'Senga'
-          @r2d2_debug.r2d2_instance -= 4  # normalize the r2d2 device number
-        end
-
-        unless wrong_board
+        if (@r2d2_debug.extract_and_set_attr params[:test_result])
           if @r2d2_debug.save
             @just_created = true
-            @data_read_dump = @r2d2_debug.generate_data_read
-            render 'show_results', :notice => 'Debug session was successfully created.' 
+            session[:debug_id] = @r2d2_debug.id;
+            #@data_read_dump = @r2d2_debug.generate_data_read
+            respond_to do |format|
+              format.html { render 'show_results', :notice => 'Debug session was successfully created.' }
+              format.js
+            end
           else
-            render 'new'
+            flash.now[:alert] = "Something is wrong"
+            respond_to do |format|
+              format.html { render 'new' }
+              format.js { render 'create_fail'}
+            end
           end
         else
-           flash.now[:alert] = 'The R2D2 instance is greater than 4, you should select the Senga board'
-           render 'new' 
+          flash.now[:alert] = "Looks like you've selected the wrong board"
+          respond_to do |format|
+            format.html { render 'new' }
+            format.js { render 'create_fail'}
+          end
         end
       else
         flash.now[:alert] = 'Did you forget to paste your packet buffer test result?'
-        render 'new' 
+        respond_to do |format|
+          format.html { render 'new' }
+          format.js { render 'create_fail'}
+        end
       end
   end
 
@@ -73,7 +78,8 @@ class R2d2DebugsController < ApplicationController
 
   def destroy
     @r2d2_debug = current_user.r2d2_debugs.find(params[:id])
-    redirect_to r2d2_debugs_path, :notice => 
+    redirect_to assemblies_path, :notice => 
+    #redirect_to r2d2_debugs_path, :notice => 
       if @r2d2_debug.destroy
        'Debug session was successfully deleted.'
       else 

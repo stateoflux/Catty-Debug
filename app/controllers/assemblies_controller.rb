@@ -6,30 +6,22 @@ class AssembliesController < ApplicationController
   def index
     @assemblies = Assembly.all
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @assemblies }
-    end
+    # I couldn't figure out a way to render the users index view from within
+    # the assembly index view such that the user index view is appended to
+    # the assembly index view.  I'm just going to append the user index view
+    # erb to the assembly index erb...ugly hack :(
+    @users = User.all
+    @r2d2_debugs = R2d2Debug.first_ten
   end
 
   # GET /assemblies/1
   def show
     @assembly = Assembly.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @assembly }
-    end
   end
 
   # GET /assemblies/new
   def new
     @assembly = Assembly.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @assembly }
-    end
   end
 
   # GET /assemblies/1/edit
@@ -74,14 +66,10 @@ class AssembliesController < ApplicationController
   def update
     @assembly = Assembly.find(params[:id])
 
-    respond_to do |format|
-      if @assembly.update_attributes(params[:assembly])
-        format.html { redirect_to(@assembly, :notice => 'Assembly was successfully updated.') }
-        format.xml  { head :ok }
-      else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @assembly.errors, :status => :unprocessable_entity }
-      end
+    if @assembly.update_attributes(params[:assembly])
+      redirect_to(assemblies_path, :notice => 'Assembly was successfully updated.')
+    else
+      render :action => "edit"
     end
   end
 

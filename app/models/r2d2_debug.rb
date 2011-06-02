@@ -13,7 +13,8 @@ class R2d2Debug < ActiveRecord::Base
                         :format => {:with => /^[RT]x$/}
   validates :serial_number, :presence => true,
                             :length => {:within => 11..15},
-                            :format => {:with => /^SAD\d{6,7}[A-Z0-9]{2,2}$/}
+                            :format => {:with => /^SA[DL][A-Z0-9]{8,9}$/}
+  validates :data_read, :presence => true
   validates :user, :presence => true, :associated => true
   validates :assembly, :presence => true, :associated => true
   validates :bad_bits, :presence => true, :associated => true
@@ -24,6 +25,12 @@ class R2d2Debug < ActiveRecord::Base
   has_and_belongs_to_many :bad_bits, :order => 'bad_bit DESC'
   has_one :rework_request, :order => 'created_at DESC', :dependent => :destroy
 
+  # Default order
+  default_scope order('r2d2_debugs.id DESC')
+
+  # Named scopes
+  scope :first_ten, limit(10)
+
   # Callbacks
   # after_create :test_result_should_contain_text
 
@@ -32,17 +39,23 @@ class R2d2Debug < ActiveRecord::Base
 #------------------------------------------------------------------------------
   def extract_and_set_attr(test_result)
     extract_attr(test_result)
-
-    bad_bit_values = extract_bad_bits @extracted_data_pattern, @extracted_data_read 
-    for bad_bit_value in bad_bit_values
-      bad_bits << BadBit.new(:bad_bit => bad_bit_value)
+    if (check_if_right_board)
+      bad_bit_values = extract_bad_bits @extracted_data_pattern, @extracted_data_read 
+      for bad_bit_value in bad_bit_values
+        bad_bits << BadBit.new(:bad_bit => bad_bit_value)
+      end
+      self.r2d2_instance = normalized_r2d2_instance
+      logger.debug "debug: r2d2_instance -> #{self.r2d2_instance}"
+      self.interface = @extracted_interface.sub(/X/, "x") 
+      logger.debug "debug: data_read -> #{generate_data_read}"
+      self.data_read = generate_data_read
+    else
+      return false;
     end
-
-    self.r2d2_instance = @extracted_device_number.to_i - 1
-    self.interface = @extracted_interface.sub(/X/, "x") 
   end
   
   def extract_attr(test_result)
+    #logger.debug("extract_attr: test_result -> #{test_result}")
     @test_result = test_result
 
     # extract the following from "test_result" parameter string
@@ -50,25 +63,56 @@ class R2d2Debug < ActiveRecord::Base
     # - test data pattern (default 0x55) ($2)
     # - r2d2 instance via "Device Number" string ($3)
     # - data read back from memory via "Data Read" string ($4 - $7)
-    /R2D2((?:T|R)X)PB.+?\r\n(?:.+?\r\n){4,4}
-    \sData\sPattern.+?(\d{2,2})\r\n
-    \sDevice\sNumber.+?(\d)[\r\n](?:[\w:\s]+?[\n\r]){13,13}
+    # Discovered that when form text is sent using AJAX, lines breaks are "\n" but
+    # when form text is sent normally, line breaks are "\r\n".  Modified the regex 
+    # below to account for both cases (03-31-11)
+    #/R2D2((?:T|R)X)PB.+?(?:\r)?\n(?:.+?(?:\r)?\n){4,4}
+    #\sData\sPattern.+?(\d{2,2})(?:\r)?\n
+    #\sDevice\sNumber.+?(\d)[\r\n](?:[\w:\s]+?[\n\r]){13,13}
+    #\sData\sRead\s+?:\s0x\s((?:(?:\d|[abcdef]){4,4}\s){11,11})[\n\r]
+    #\s+?((?:(?:\d|[abcdef]){4,4}\s){11,11})[\n\r]
+    #\s+?((?:(?:\d|[abcdef]){4,4}\s){11,11})[\n\r]
+    #\s+?((?:(?:\d|[abcdef]){4,4}\s){3,3})/x =~ test_result
+
+    /R2D2((?:T|R)X)PB.+?(?:\r)?\n(?:.+?(?:\r)?\n){5,5}
+    \sDevice\sNumber.+?(\d)[\r\n](?:[\w:\s]+?[\n\r]){9,9}
+    \sData\sExpected\s+?:\s0x\s((?:\d|[abcdef]){2,2}).+?[\n\r](?:[\w:\s]+?[\n\r]){3,3}
     \sData\sRead\s+?:\s0x\s((?:(?:\d|[abcdef]){4,4}\s){11,11})[\n\r]
     \s+?((?:(?:\d|[abcdef]){4,4}\s){11,11})[\n\r]
     \s+?((?:(?:\d|[abcdef]){4,4}\s){11,11})[\n\r]
     \s+?((?:(?:\d|[abcdef]){4,4}\s){3,3})/x =~ test_result
 
+    #logger.debug("these are the fields extracted from result text: #{$1}\n")
     #logger.debug("these are the fields extracted from result text: #{$1}\n#{$2}\n#{$3}\n#{$4}\n#{$5}\n#{$6}\n#{$7}")
     #
     @extracted_interface = $1
-    @extracted_data_pattern = $2
-    @extracted_device_number = $3
+    @extracted_device_number = $2
+    @extracted_data_pattern = $3
     @extracted_data_read = [$4, $5, $6, $7]
   end
 
+  def check_if_right_board
+    if (@extracted_device_number.to_i > 4 && self.assembly.project_name != "Senga" ||
+        @extracted_device_number.to_i > 2 && self.assembly.project_name == "Palladium-SM")
+      return false
+    else
+      return true
+    end
+  end
+
+  def normalized_r2d2_instance
+    if self.assembly.project_name == "Senga"
+      return @extracted_device_number.to_i - 5  
+    else
+      return @extracted_device_number.to_i - 1 
+    end
+  end
+
   def extract_bad_bits(data_pattern, data_read)
+    logger.debug "debug: data_pattern -> #{data_pattern}, data_read -> #{data_read}"
     expected = ""
     72.times {expected = expected + data_pattern}
+    logger.debug "debug: expected -> #{expected}"
     binary_bits = (expected.hex ^ (data_read.join("").scan(/\w+/).join.hex)).to_s(2).reverse
     index = -1 
     bad_bits = []
@@ -86,6 +130,7 @@ class R2d2Debug < ActiveRecord::Base
 
 
   def generate_data_read
+    "Data Read" + "\s" * 11 + ": 0x " + 
     @extracted_data_read[0] + "\n" + "\s" * 25 + @extracted_data_read[1] + "\n" + 
     "\s" * 25 + @extracted_data_read[2] + "\n" + "\s" * 25 + @extracted_data_read[3]
   end

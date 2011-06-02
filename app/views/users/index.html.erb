@@ -1,4 +1,4 @@
-  <h2 class="view-head">User Listing :<span class="sub-head">List of users that are currently in the database</span></h2>
+  <h2 class="view-head">User Listing: <span class="sub-head">List of users that are currently in the database</span></h2>
   <table>
     <thead>
       <th>First Name</th>
@@ -13,11 +13,11 @@
       <td><%= user.last_name.capitalize %></td>
       <td><%= user.email %></td>
       <td><%= user.admin %></td>
-      <td><%= link_to 'Display', user, :class => "button" %></td>
+      <td><%= link_to 'Display Sessions', user, :class => "button" %></td>
       <td><%= link_to 'Edit', edit_user_path(user), :class => "button" %></td>
       <td><%= link_to 'Destroy', user, :confirm => 'Are you sure?', :method => :delete, :class => "button" %></td>
     </tr>
   <% end %>
   </table>
   <br />
-  <span>Add new user  </span><%= link_to 'Add User', new_user_path %>
+  <%= link_to 'Add New User', new_user_path, :class => "button" %>

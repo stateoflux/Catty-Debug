@@ -18,10 +18,10 @@ class BadBit < ActiveRecord::Base
   end
 
   def phy
-    case bad_bit % 287 
+    case bad_bit % 288 
       when 0..35    then return 0
       when 36..71   then return 1
-      when 71..107  then return 2
+      when 72..107  then return 2
       when 108..143 then return 3
       when 144..179 then return 4
       when 180..215 then return 5
@@ -31,7 +31,7 @@ class BadBit < ActiveRecord::Base
   end
 
   def edge
-    if (bad_bit % 287) % 36 <= 17
+    if (bad_bit % 288) % 36 <= 17
       return "falling"
     else
       return "rising"

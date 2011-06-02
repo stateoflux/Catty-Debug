@@ -1,6 +1,7 @@
-  <h2 class="view-head">Debug Session Listing :<span class="sub-head">List of debug sessions that are currently in the database</span></h2>
+  <h2 class="view-head">Debug Session Listing<!--: <span class="sub-head">List of debug sessions that are currently in the database</span>--></h2>
   <table>
     <thead>
+      <th>Date Submitted</th>
       <th>User</th>
       <th>Project</th>
       <th>Serial Number</th>
@@ -9,8 +10,9 @@
 
   <% @r2d2_debugs.each do |r2d2_debug| %>
     <tr>
-      <td><%= r2d2_debug.user.email %></td>
-      <td><%= r2d2_debug.assembly.proper_name %></td>
+      <td><%= r2d2_debug.created_at.getlocal.to_formatted_s(:short) %></td>
+      <td><%= r2d2_debug.user.email if r2d2_debug.user %></td>
+      <td><%= r2d2_debug.assembly.proper_name if r2d2_debug.assembly %></td>
       <td><%= r2d2_debug.serial_number %></td>
       <td><%= r2d2_debug.r2d2_instance %></td>
       <td><%= link_to 'Show', r2d2_debug, :class => "button" %></td>
@@ -20,4 +22,4 @@
   <% end %>
   </table>
   <br />
-  <span>Add new debug session  </span><%= link_to 'Add Debug Session', new_r2d2_debug_path %>
+  <%#= link_to 'Add Debug Session', new_r2d2_debug_path %>

@@ -1,50 +1,19 @@
-/*@font-face {
-	font-family: 'M1clight';
-	src: url('/type/M-1c-fontfacekit/mplus-1c-light-webfont.eot?') format('eot'),
-	     url('/type/M-1c-fontfacekit/mplus-1c-light-webfont.woff') format('woff'), 
-             url('/type/M-1c-fontfacekit/mplus-1c-light-webfont.ttf') format('truetype'), 
-             url('/type/M-1c-fontfacekit/mplus-1c-light-webfont.svg#webfontH0SmxOLj') format('svg');
-	font-weight: normal;
-	font-style: normal;
-}
-
-@font-face {
-	font-family: 'M1cregular';
-	src: url('/type/M-1c-fontfacekit/mplus-1c-regular-webfont.eot?') format('eot'),
-	     url('/type/M-1c-fontfacekit/mplus-1c-regular-webfont.woff') format('woff'), 
-             url('/type/M-1c-fontfacekit/mplus-1c-regular-webfont.ttf') format('truetype'), 
-             url('/type/M-1c-fontfacekit/mplus-1c-regular-webfont.svg#webfontH0SmxOLj') format('svg');
-	font-weight: normal;
-	font-style: normal;
-}*/
-/*@font-face {
-	font-family: 'GreyscaleBasicBold';
-	src: url('/type/Greyscale-Basic-fontfacekit/Greyscale_Basic_Bold-webfont.eot') format('et'),
-             url('/type/Greyscale-Basic-fontfacekit/Greyscale_Basic_Bold-webfont.woff') format('woff'), 
-             url('/type/Greyscale-Basic-fontfacekit/Greyscale_Basic_Bold-webfont.ttf') format('truetype'), 
-             url('/type/Greyscale-Basic-fontfacekit/Greyscale_Basic_Bold-webfont.svg#webfontfJei6OMq') format('svg');
-	font-weight: normal;
-	font-style: normal;
-}*/
-
 /*-----------------------------------------------------------------------------
  * Color Notes
  *
- * light green for preloaded data: 
+ * light green for preloaded data: rgba(192,243,151,0.8)
  * red for active links
  * blue for section headers
  * blue for content headers (h2)
  * grey for body background: #f7f7f7
  * default dark grey for text: #333
+ *
+ *  nice dark blue from cisco site: #364f87;
  * ----------------------------------------------------------------------------*/
 body {
    background-color: #f7f7f7;
    color: #333;
    background: url("/images/page-bg.png") #f7f7f7 repeat center top;
-}
-
-.copy {
-  font-family: 'Trebuchet MS', sans-serif;
 }
 
 form input[type="text"],
@@ -78,19 +47,37 @@ a.active {
 }
 
 a:hover {
+  padding: 2px 4px;
   background-color: #bbb;
   color: #333;
 }
 
-/* Common button styles */
+/*-----------------------------------------------------------------------------
+ * BUTTON RULES 
+ *----------------------------------------------------------------------------*/
 .button {
-  background-color: #eee;
-  /*background-color: rgba(192,243,151,0.8); */
+  /*background-color: #eee;*/
+  /*background-color: rgba(2, 93, 140, 0.13);*/
   border: 1px solid #bbb;
-  color: #333;
+  color: #555;
   -border-radius: 3px;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
+  text-shadow: 1px 1px 0 rgba(255, 255, 255, .8);
+  background: 
+    -webkit-gradient(linear,0 0, 0 100%, 
+      color-stop(0, rgba(255, 255, 255, 1)), 
+      color-stop(.05, rgba(255, 255, 255, 0.5)),
+      color-stop(1, rgba(255, 255, 255, 0))
+    )
+  ;
+  background: -moz-linear-gradient( 
+      rgba(255, 255, 255, 1),
+      rgba(255, 255, 255, 0.5) 5%,
+      rgba(255, 255, 255, 0)
+    )
+  ;
+  background-color: rgba(192,243,151,0.5);
 }
 
 a.button  {
@@ -101,7 +88,8 @@ a.button  {
 }
 
 a.button:hover {
-  background-color: rgba(192,243,151,0.8); 
+  background-color: rgba(192,243,151,1);
+  color: #333;
 }
   
 /* Submit Button Rules */
@@ -109,15 +97,27 @@ form input[type="submit"] {
   padding: 8px 15px;
   font-weight: bold;
   line-height: 1;
-  color: #fcfcfc;
   border: none;
-  background-color: #222;
-  border: 1px solid #555;
-  -border-radius: 3px;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  background-image: -webkit-gradient(linear,0% 0%, 0% 100%, from(#555), to(#222)); 
-  background-image: -moz-linear-gradient(0 100% 90deg, #fff, #bbb);  
+  color: #fff;
+  background-color: #1a803e;
+  -border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  background: 
+    -webkit-gradient(linear,0 0, 0 100%, 
+      from(#41a02c),
+      to(#1a803e)
+    )
+  ;
+  background:
+    -moz-linear-gradient(
+      #41a02c, 
+      #1a803e
+    )
+  ;  
+  -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+     -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+          box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
 }
 
 h1.app-header {
@@ -231,24 +231,60 @@ li.greeting:after {
   /* but, if I do that then it looks like I need to float the "a" elements... */
   /* display: block; */
   padding: 5px 20px 5px 20px;
-  color: #333;
-  background-color: #eee;
+  color: #555;
+  /* background-color: #eee;*/
+  background-color: rgba(9, 9, 9, 0.1);
   border: 1px solid #bbb;
   font-size: 14px; 
   -border-radius: 3px;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
+  text-shadow: 1px 1px 0 rgba(255, 255, 255, .8);
+}
+
+.gloss {
+  background: 
+    -webkit-gradient(linear,0 0, 0 100%, 
+      color-stop(0, rgba(255, 255, 255, 1)), 
+      color-stop(.05, rgba(255, 255, 255, 0.5)),
+      color-stop(1, rgba(255, 255, 255, 0))
+    )
+  ;
+  background: 
+    -moz-linear-gradient( 
+      rgba(255, 255, 255, 1),
+      rgba(255, 255, 255, 0.5) 5%,
+      rgba(255, 255, 255, 0)
+    )
+  ;
+}
+
+.nav-bar li a:hover {
+  background-color: rgba(192,243,151,0.8);
+  color: #333;
 }
 
 .nav-bar li a.active {
-  background-color: rgba(198, 1, 10, 0.9);
   border: 1px solid rgba(198, 1, 10, 1);
   color: #fff;
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, .8);
+  background: 
+    -webkit-gradient(linear,0 0, 0 100%, 
+      color-stop(0, rgba(255, 255, 255, 1)), 
+      color-stop(.05, rgba(255, 255, 255, 0.3)),
+      color-stop(1, rgba(255, 255, 255, 0))
+    )
+  ;
+  background: 
+    -moz-linear-gradient( 
+      rgba(255, 255, 255, 1),
+      rgba(255, 255, 255, 0.3) 5%,
+      rgba(255, 255, 255, 0)
+    )
+  ;
+  background-color: rgba(198, 1, 10, 0.9);
 }
-.nav-bar li a:hover {
-  background-color: #bbb;
-  color: #333;
-}
+
 
 /*-----------------------------------------------------------------------------
  * MAIN CONTENT WRAPPER
@@ -266,7 +302,7 @@ li.greeting:after {
 }
 
 .main-content-bar {
-  background-color: #98b6ce;
+  background-color: rgb(152, 182, 206);
   border-bottom: 1px solid #777;
   border-top-left-radius: 4px;
   -webkit-border-top-left-radius: 4px;
@@ -274,13 +310,24 @@ li.greeting:after {
   border-top-right-radius: 4px;
   -webkit-border-top-right-radius: 4px;
   -moz-border-radius-topright: 4px;
-  /*background-image: -webkit-gradient(linear,0% 0%, 0% 100%, from(#555), to(#222)); 
-  background-image: -moz-linear-gradient(0 100% 90deg, #fff, #bbb);  */
+  background: 
+    -webkit-gradient(linear,0 0, 0 100%, 
+      color-stop(0, rgba(152, 182, 206, 0.7)),
+      color-stop(1, rgba(152, 182, 206, 1))
+    )
+  ;
+  background: 
+    -moz-linear-gradient( 
+      rgba(152, 182, 206, 0.7),
+      rgba(152, 182, 206, 1)
+    )
+  ;
 }
 .main-content-bar h1 {
   margin: 0;
-  padding: 10px 0 6px 20px;
+  padding: 14px 0 2px 20px;
   font-weight: normal;
+  color: #333;
 }
 .main-content-bar p {
   padding: 0 0 10px 20px;
@@ -290,7 +337,7 @@ li.greeting:after {
 .main-content-bar h1, 
 .main-content-bar p, 
 .footer p {
-  text-shadow: 0 1px 0 rgba(255, 255, 255, .8)
+  text-shadow: 0 1px 0 rgba(255, 255, 255, .7)
 }
 
 /* wrapper around the content rendered by application */
@@ -303,7 +350,7 @@ li.greeting:after {
   font-size: 1.69em; /* 13px * 1.69 = 22px */
   font-weight: normal;
   color: rgba(2, 93, 140, 1);
-  margin-bottom: 10px;
+  margin-bottom: 14px;
   /*border-bottom: 3px solid #666;*/
 }
 
@@ -311,7 +358,7 @@ li.greeting:after {
  * LOGIN PAGE
  * ----------------------------------------------------------------------------*/
 div.login-container {
-  width: 70%;
+  width: 50%;
   margin: 20px auto;
   padding-bottom: 20px;
 }
@@ -325,12 +372,16 @@ div.login-container table {
 div.login-container table td {
   width: 50%;
   padding: 20px;
-  background-color: rgba(192,243,151,0.8);
+  /*background-color: rgba(192,243,151,0.8);*/
+  background-color: #f7f7f7;
   font-size: 16px;
   border: 1px solid #ccc;
-  -border-radius: 6px;
   -webkit-border-radius: 6px;
-  -moz-border-radius: 6px;
+     -moz-border-radius: 6px;
+         -border-radius: 6px;
+  /*-webkit-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
+     -moz-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
+          box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);*/
 }
 
 div.login-container table td fieldset {
@@ -354,17 +405,15 @@ div.login-container p {
 
 
 a.signup {
-  background-color: #ccc;
+  /*background-color: #ccc;*/
   padding: 2px 4px;
-  -border-radius: 2px;
-  -webkit-border-radius: 2px;
-  -moz-border-radius: 2px;
+  /*-webkit-border-radius: 2px;
+     -moz-border-radius: 2px;
+         -border-radius: 2px;*/
+  text-decoration: underline;
+  color: #364f87
 }
 
-a.signup:hover {
-  background-color: rgba(198, 1, 10, 0.9);
-  color: #fcfcfc;
-}
 
 /*-----------------------------------------------------------------------------
  * USER HOME PAGE
@@ -372,7 +421,6 @@ a.signup:hover {
 div.user-info-wrapper {
   float: left;
   padding-bottom: 0.5em;
-  border-bottom: 2px solid #bbb;
   margin-bottom: 1em; 
 }
 
@@ -381,15 +429,19 @@ div.user-icon {
   padding: 0 6px;
   margin: 0 10px 0 5px;
   background-color: #f3f3f3;
-  -border-radius: 3px;
   -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
+     -moz-border-radius: 3px;
+         -border-radius: 3px;
+  -webkit-box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+     -moz-box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+          box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 p.user-info {
   width: 800px;
   float: left;
   margin: 10px 0 0 0;
+  color: #111;
 }
 
 
@@ -427,6 +479,17 @@ table.r2d2-complex td.label, table.r2d2-complex label {
   color: #556270;
 }
 
+.user-form {
+  width: 40%;
+  padding: 1em;
+  background: #f5f5f5;
+  -moz-box-shadow: inset 0 0 3px #555;
+  -webkit-box-shadow: inset 0 0 3px #555;
+  box-shadow: inset 0 0 3px #555;
+  -border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+}
 
 /*-----------------------------------------------------------------------------
  * DEBUG TOOL PAGE
@@ -437,25 +500,42 @@ h2.tool-header {
 }
 
 p.tool-desc {
-  width: 22%;
+  width: 24.2%;
   float: right;
   margin: 0 0 0.5em 0;
   padding: 1em;
-  background-color: #222;
-  color: #f3f3f3;
-  -border-radius: 3px;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
+  /*background-color: #fcfcfc;*/
+  background-color: rgba(249,242,129,1);
+  color: #000;
+  border-top: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
 }
 
-.new-user-form,
+div#error-msgs {
+  width: 21.98%;
+  float: right;
+  margin: 160px 0 0.5em 0;
+  padding: 1em;
+  background-color: #fff;
+  color: rgb(198, 1, 10);
+  border: 3px solid rgb(198, 1, 10); 
+  font-weight: bold;
+  -webkit-box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
+     -moz-box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
+          box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.5);
+}
+
 .debug-form,
 .rework-form {
   width: 70%;
   padding: 1em;
   /*background: #fcfcfc;*/
-  background: #f2f2f2;
-  border: 3px solid #bbb;
+  background: #f5f5f5;
+  /*border: 3px solid #bbb;*/
+  -moz-box-shadow: inset 0 0 3px #555;
+  -webkit-box-shadow: inset 0 0 3px #555;
+  box-shadow: inset 0 0 3px #555;
   -border-radius: 3px;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
@@ -465,7 +545,7 @@ p.tool-desc {
   float: left;
 }
 
-.new-user-form fieldset,
+.user-form fieldset,
 .debug-form fieldset,
 .rework-form fieldset {
  margin-bottom: 0.8em;
@@ -483,18 +563,17 @@ p.tool-desc {
   margin-bottom: 0;
 }
 
-.new-user-form fieldset label,
+.user-form fieldset label,
 .debug-form fieldset label,
 .rework-form fieldset fieldset label,
 .rework-form fieldset label {
   display: block;
   margin: 0 0 3px 0;
-  /*color: #444;*/
-  /*font-weight: bold;*/
-  color: #000;
+  color: #444;
+  font-weight: bold;
 }
 
-.new-user-form fieldset input,
+.user-form fieldset input,
 .debug-form fieldset input,
 .debug-form fieldset textarea,
 .rework-form fieldset fieldset input,
@@ -505,19 +584,20 @@ p.tool-desc {
 .debug-form fieldset textarea {
   width: 96%;
   font-family: Monaco, 'Courier New', 'DejaVu Sans Monaco', monospace;
-  font-size: 0.75em;
+  font-size: 10px;
 }
 
 /*-----------------------------------------------------------------------------
  * Results Page  
  * ---------------------------------------------------------------------------*/
 h2.results-header {
-  margin-bottom: 1em; 
-  border-bottom: 3px solid #666;
+  margin-bottom: 24px; 
 }
 
 h3 {
   font-size: 1.38em; /* 13px * 1.38 = 18px */ 
+  margin-bottom: 0.7em;
+  color: rgb(193,1,10);
 }
 
 /* --- Summary section rules --- */
@@ -525,13 +605,14 @@ p.summary {
   /*color: #555;*/
 }
 
-span.highlight {
-  color: #A0152E;
+span.highlight,
+p.highlight {
+  color: #000;
   font-weight: bold;
 }
 
 div.data-read {
-  margin: 0 0 2em 0;
+  margin: 0 0 1em 0;
   margin-right: 35%;
 }
 
@@ -541,7 +622,7 @@ div.data-read pre {
   border: 1px solid #ccc;
   color: #555;
   font-family: Monaco, 'Courier New', 'DejaVu Sans Monaco', monospace;
-  font-size: 0.82em;
+  font-size: 11px;
   margin: 0 0 1em 0;
 }
 
@@ -550,41 +631,50 @@ div.data-read pre .bad-bit {
   /*font-weight: bold;*/
 }
 
+div.data-read p {
+  color: #555;
+  font-weight: bold;
+}
+
 /* --- Mapping Table --- */
 div.mapping {
   padding-bottom: 7px;
-  border-bottom: 1px solid #ccc;
+  /* border-bottom: 1px solid #ccc;*/
   margin-bottom: 20px;
 }
 
 /*  Call to action --- */
-div.choose {
+div.choice {
   width: 47%;
   float: left;
   padding: 10px;
 }
 
-div.rework-choice {
+/*div.choose p {
+  text-align: center;
+  font-size: 1.23em;
+  color: #364f87
+}*/
+
+div.debug-choice {
   border-right: 1px solid #ccc;
 }
 
+div.debug-choice .button,
+div.home-choice .button,
 div.rework-choice .button {
   margin-left: 35%;
 }
 
-div.debug-choice .button {
-  margin: 12% 0 0 35%;
-}
-
-div.choose p {
-  text-align: center;
-  font-size: 1.23em;
-}
-
-
 /*-----------------------------------------------------------------------------
  * Rework Request Page  
  * ---------------------------------------------------------------------------*/
+div.rule {
+  margin-top: 1.5em;
+  border-top: 1px solid #fcfcfc;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 1.5em;
+}
 .rework-form {
   width: 70%;
 }
@@ -604,30 +694,62 @@ div.choose p {
   background-color: rgba(192,243,151,0.8); 
 }
 
-p.rework-contact-info {
-  width: 70%;
-  font-size: 1.1em;
-  line-height: 1.7;
-  padding-bottom: 10px;
-  border-bottom: 1px solid #ccc;
-  margin-bottom: 18px;
-}
 
 p.rework-req-info {
-  width: 70%;
+  width: 58%;
   padding: 1em;
-  -border-radius: 2px;
+  margin-bottom: 18px;
   -webkit-border-radius: 2px;
-  -moz-border-radius: 2px;
+     -moz-border-radius: 2px;
+         -border-radius: 2px;
+  -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+     -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+          box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
 }
 
 p.rework-req-info {
   background-color: rgba(192,243,151,0.8);
 }
 
+div.rework-contact-info {
+  float: left;
+  width: 60%;
+  font-size: 1.1em;
+  line-height: 1.7;
+}
+
+div.contact-box {
+  float: right;
+  width: 35%;
+  background-color: #f7f7f7;
+  padding: 1em;
+  border: 1px solid #ccc;
+
+}
+
 /*-----------------------------------------------------------------------------
  * Validation  
  * ---------------------------------------------------------------------------*/
+.validate-pass {
+  margin: 0 0 0 2px;
+  padding: 2px 2px 2px 22px;
+  color: #00aa00;
+  font-weight: bold;
+  background: url("../images/tick.png") no-repeat left center;
+}
+
+form input.validate-fail-border {
+  border: 2px solid rgb(198, 1, 10);
+}
+
+.validate-fail {
+  margin: 0 0 0 2px;
+  padding: 2px 2px 2px 0px;
+  /*padding: 2px 2px 2px 22px; for icon */
+  color: #dd0000;
+  font-weight: bold;
+  /*background: url("../images/cross.png") no-repeat left center;*/
+}
 
 /*-----------------------------------------------------------------------------
  * Footer 

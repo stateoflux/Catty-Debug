@@ -5,7 +5,7 @@ class SessionsController < ApplicationController
       session[:user_id] = user.id
       redirect_to user_path(user.id)
     else
-      flash.now[:alert] = "I could not confirm your email id, you must be a new user. Please signup using the link below."
+      flash.now[:alert] = "You must be a new user. Please request access from the Admin."
       render :action => 'new'
     end
   end

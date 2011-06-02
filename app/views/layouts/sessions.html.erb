@@ -2,22 +2,22 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1" />
-    <title>Cat6K Debug & Rework Web App</title>
+    <title>Cat6K Debug Web App</title>
     <%= stylesheet_link_tag "reset", "text", "960", "layout", "cat6k_debug" %>
-    <!--<script type="text/javascript" src="../../../../../jquery/jquery-1.4.2/jquery-1.4.2.min.js"></script>-->
-    <!--<script type="text/javascript" src="r2d2_debug.js"></script>-->
-    <%= javascript_include_tag :defaults %>
+    <%= javascript_include_tag 'jquery-1.4.4.min', 'rails', 'cat6k_debug' %>
     <!-- helper below has something to do with unobtrusive javascript and protection from CSRF attacks? -->
     <%= csrf_meta_tag %>
   </head>
   <body>
     <div class="container_16">
-        <img class="login-logo" src="/images/cisco_logo.jpg" alt="Cisco Systems Inc." />
-        <h1 class="app-header">Cat 6K Debug & Rework Web Application</h1>
+    <!--<img class="login-logo" src="/images/cisco_logo_red.jpg" alt="Cisco Systems Inc." /> -->
+        <!-- <img class="login-logo" src="/images/cisco_logo_red.jpg" alt="Cisco Systems Inc." /> -->
+        <h1 class="app-header">Cat 6K Debug Web Application</h1>
       <!-- Main content -->
       <div class="login-container main-content">
         <div class="main-content-bar">
           <h1>Log in</h1>
+          <p></p>
         </div>
         <div class="dyn-content">
           <!-- Warning/Error messages from application --> 
@@ -28,9 +28,9 @@
           <%= yield %>
         </div>
       </div>
-      <div class="grid_12 prefix_2 suffix_2 footer">
+      <!--<div class="grid_12 prefix_2 suffix_2 footer">
         <p>Please contact Wayne Montague (wmontagu@cisco.com) for any questions regarding this app</p>
-      </div>
+        </div> -->
     </div> <!-- end of container -->
   </body>
 </html>

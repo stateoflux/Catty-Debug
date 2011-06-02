@@ -1,4 +1,5 @@
 <%= form_for(@r2d2_debug, :html => {:class => 'debug-form'}) do |f| %>
+<%#= form_for(@r2d2_debug, :remote => true, :html => {:class => 'debug-form'}) do |f| %>
   <% if @r2d2_debug.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@r2d2_debug.errors.count, "error") %> prohibited this r2d2_debug from being saved:</h2>
@@ -12,7 +13,7 @@
   <!-- select project from pulldown menu -->
   <fieldset>
     <%= f.label :assembly_id, "What type of board did this failure occur?" %>
-    <%= f.collection_select :assembly_id, Assembly.all, :id, :proper_name %>
+    <%= f.collection_select :assembly_id, Assembly.all, :id, :proper_name, {:prompt => 'Please Choose a Board'} %>
   </fieldset>
   <!-- Enter board serial number -->
   <fieldset>
@@ -24,5 +25,6 @@
     <%= label_tag 'test_result', "Paste in the result from r2d2 packet buffer test" %>
     <%= text_area_tag 'test_result', nil, :size => "80x25" %>
   </fieldset>
-  <%= f.submit %>
+  <%= submit_tag "Submit" %>
+  <%#= f.submit %>
 <% end %>
