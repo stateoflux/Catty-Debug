@@ -77,7 +77,8 @@ class R2d2DebugsController < ApplicationController
 =end
 
   def destroy
-    @r2d2_debug = current_user.r2d2_debugs.find(params[:id])
+    @r2d2_debug = R2d2Debug.find(params[:id])
+    #@r2d2_debug = current_user.r2d2_debugs.find(params[:id])
     redirect_to assemblies_path, :notice => 
     #redirect_to r2d2_debugs_path, :notice => 
       if @r2d2_debug.destroy
