@@ -195,7 +195,7 @@ $(document).ready(function() {
     }
     // Validate S/N entered is the correct format
     else {
-      if (/^SA[A-Z]{1,1}\d{6,7}[A-Z]{2,2}$/.test(this.value)) {
+      if (/^SA[A-Z]{1,1}\d{6,7}[A-Z0-9]{2,2}$/.test(this.value)) {
         $('<span></span>')
           .addClass('validate-pass')
           .text('OK')
