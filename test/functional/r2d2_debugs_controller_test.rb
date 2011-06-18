@@ -4,167 +4,190 @@ require 'test_helper'
 
 class R2d2DebugsControllerTest < ActionController::TestCase
   setup do
-    @r2d2_debug = r2d2_debugs(:mikki_debug)
-    @r2d2_debug.assembly = build_assembly
-    @r2d2_debug.user = users(:wayne)
-    @r2d2_debug.bad_bits << bad_bits(:one, :ten, :one_fifty)
+    @wayne = Factory(:user)
+    @r2d2_debug = Factory.build(:r2d2_debug, :user => nil)
+    @r2d2_debug.user = @wayne
+    @r2d2_debug.save
+    @mikki = build_mikki
   end
 
+  # Only admin has access to this particular action
+  # but a normal user can access their debug session
+  # listing via their user page
   test "should get index admin" do
-    login_as :wayne
+    login_as @wayne
     get :index
     assert_response :success
     assert_template 'index'
-    assert_not_nil assigns(:r2d2_debugs)
+    assert !assigns(:r2d2_debugs).empty?
   end
-=begin
+
   test "should get new admin" do
+    login_as @wayne
     get :new
     assert_response :success
     assert_template 'new'
     assert_not_nil assigns(:r2d2_debug)
   end
-
-  test "should get create admin" do
+  
+  # Tests the passing path
+  test "should create r2d2_debug admin" do
+    assembly = Factory(:assembly)
+    login_as @wayne
     assert_difference('R2d2Debug.count') do 
-      post :create, :r2d2_debug => {:first_name => "jules", :last_name => "Verne",
-                              :email => "j.verne@gmail.com", :admin => false}
+      post :create, {
+        :r2d2_debug => {
+          :serial_number => "SAD111222UX",
+          :assembly_id => assembly.to_param
+        },
+        :test_result => test_result_dump
+      }
     end
-    assert_response :redirect
-    assert_redirected_to r2d2_debug_path(assigns :r2d2_debug)
+    assert_template 'show_results' 
+    assert_not_nil assigns(:r2d2_debug)
+    assert assigns(:r2d2_debug).valid?
   end
 
-  test "should get edit admin" do
-    login_as :wayne
-    get :edit, :id => @r2d2_debug.to_param
+  # Tests path where test_result field is empty
+  test "should not create r2d2_debug when test_result is empty admin" do
+    assembly = Factory(:assembly)
+    login_as @wayne
+    assert_no_difference('R2d2Debug.count') do 
+      post :create, {
+        :r2d2_debug => {
+          :serial_number => "SAD111222UX",
+          :assembly_id => assembly.to_param
+        },
+        :test_result => "" 
+      }
+    end
     assert_response :success
-    assert_template 'edit'
+    assert_template 'new' 
   end
 
-  test "should get update admin" do
-    login_as :wayne
-    put :update, :id => @r2d2_debug.to_param, :r2d2_debug => {:last_name => "Stone"}
-    assert_response :redirect
-    assert_redirected_to r2d2_debugs_path
+  # Tests path where r2d2_debug fails to validate
+  test "should not create r2d2_debug when validation fails" do
+    assembly = Factory(:assembly)
+    login_as @wayne
+    assert_no_difference('R2d2Debug.count') do 
+      post :create, {
+        :r2d2_debug => {
+          :serial_number => "SAD1112222222222222UX",  # cause validation to fail
+          :assembly_id => assembly.to_param
+        },
+        :test_result => test_result_dump 
+      }
+    end
+    assert_response :success
+    assert_template 'new' 
+    assert_equal "Something is wrong", flash[:alert]
   end
 
-  test "should get show admin" do
-    login_as :wayne
+  # Tests the path where extract_and_set_attr method fails
+  test "should not create r2d2_debug admin when extract_and_set_attr fails" do
+    assembly = Factory(:assembly)
+    login_as @wayne
+    assert_no_difference('R2d2Debug.count') do 
+      post :create, {
+        :r2d2_debug => {
+          :serial_number => "SAD111222UX",
+          :assembly_id => assembly.to_param
+        },
+        :test_result => "..."  # causes extract_and_set_attr to fail
+      }
+    end
+    assert_template 'new' 
+    assert_equal "Something within this test result dump is invalid.  Please correct and re-submit",
+                 flash[:alert]
+  end
+
+  test "should show admin" do
+    login_as @wayne
     get :show, :id => @r2d2_debug.to_param
     assert_response :success
-    assert_template 'show'
+    assert_template 'show_results'
+    assert_not_nil assigns(:r2d2_debug)
+    assert assigns(:r2d2_debug).valid?
   end
 
-  test "should get destroy admin" do
-    login_as :wayne
+  test "should destroy admin" do
+    login_as @wayne
     assert_nothing_raised { R2d2Debug.find(@r2d2_debug.to_param) }
     assert_difference('R2d2Debug.count', -1) do
       delete :destroy, :id => @r2d2_debug.to_param
     end
     assert_response :redirect
-    assert_redirected_to r2d2_debugs_path
+    # deletion of an r2d2_object should redirect to admin dashboard (assemblies_path)
+    assert_redirected_to assemblies_path    
     assert_raise(ActiveRecord::RecordNotFound) { R2d2Debug.find(@r2d2_debug.to_param) }
   end
 
-# Mikki is a normal r2d2_debug, so she is restricted from certain tasks (index & destroy)
-# but she is able to edit and update her own attributes.
-  
-  # Mikki should not be able to access the index action
+#------------------------------------------------------------------------------  
+# Mikki is a normal user, so she is restricted from all r2d2_debug actions except
+# for show, new & create 
+#------------------------------------------------------------------------------  
   test "should not get index normal" do
-    login_as :mikki
+    login_as @mikki 
+    # create another debug session
+    mikkis_debug = Factory(:r2d2_debug, :user => @mikki)
     get :index
     assert_response :redirect
-    # redirect to mikki's info page
-    assert_redirected_to r2d2_debug_path(r2d2_debugs(:mikki)) 
+    assert_redirected_to user_path(@mikki) 
   end
 
   test "should get new normal" do
+    login_as @mikki 
     get :new
     assert_response :success
     assert_template 'new'
     assert_not_nil assigns(:r2d2_debug)
   end
 
-  test "should get create normal" do
+  test "should create normal" do
+    assembly = Factory(:assembly)
+    login_as @mikki 
     assert_difference('R2d2Debug.count') do 
-      post :create, :r2d2_debug => {:first_name => "jules", :last_name => "Verne",
-                              :email => "j.verne@gmail.com", :admin => false}
+      post :create, {
+        :r2d2_debug => {
+          :serial_number => "SAD911222UX",
+          :assembly_id => assembly.to_param
+        },
+        :test_result => test_result_dump
+      }
     end
-    assert_response :redirect
-    assert_redirected_to r2d2_debug_path(assigns :r2d2_debug) 
+    assert_template 'show_results' 
+    assert_not_nil assigns(:r2d2_debug)
+    assert assigns(:r2d2_debug).valid?
   end
 
-  test "should get edit normal" do
-    login_as :mikki
-    get :edit, :id => @r2d2_debug.to_param
+  # Mikki is allowed to see her own debug session plus others
+  test "should show normal" do
+    login_as @mikki
+    mikkis_debug = Factory(:r2d2_debug, :user => @mikki)
+    get :show, :id => mikkis_debug.to_param
     assert_response :success
-    assert_template 'edit' 
-  end
+    assert_template 'show'
+    assert_not_nil assigns(:r2d2_debug)
+    assert assigns(:r2d2_debug).valid?
 
-  test "should get update normal" do
-    login_as :mikki
-    put :update, :id => @r2d2_debug.to_param, :r2d2_debug => {:last_name => "Stone"}
-    assert_response :redirect
-    assert_redirected_to r2d2_debug_path(assigns :r2d2_debug) 
-  end
-
-  test "should get show normal" do
-    login_as :mikki
+    # mikki is able to view my debug session
     get :show, :id => @r2d2_debug.to_param
     assert_response :success
     assert_template 'show'
+    assert_not_nil assigns(:r2d2_debug)
+    assert assigns(:r2d2_debug).valid?
   end
 
-  # Mikki should not be able to delete herself
-  test "should not get destroy normal" do
-    login_as :mikki
-    assert_nothing_raised { R2d2Debug.find(@r2d2_debug.to_param) }
+  # Mikki should not be able to delete her own debug sessions 
+  test "should not destroy normal" do
+    login_as @mikki
+    mikkis_debug = Factory(:r2d2_debug, :user => @mikki)
+    assert_nothing_raised { R2d2Debug.find(mikkis_debug.to_param) }
     assert_no_difference('R2d2Debug.count') do
-      delete :destroy, :id => @r2d2_debug.to_param
+      delete :destroy, :id => mikkis_debug.to_param
     end
     assert_response :redirect
-    assert_redirected_to r2d2_debug_path(assigns :r2d2_debug)
+    assert_redirected_to user_path(@mikki)
     assert_nothing_raised { R2d2Debug.find(@r2d2_debug.to_param) }
   end
-
-=begin
-# In this test suite, I'm validating that Mikki can not modify any of Wayne's attributes.
-# each reponse should be a redirect back to her info page.
-  setup do
-    @r2d2_debug = r2d2_debugs(:wayne)
-  end
-  
-  test "should not edit someone else" do
-    login_as :mikki
-    get :edit, :id => @r2d2_debug.to_param
-    assert_response :redirect
-    assert_redirected_to r2d2_debug_path(r2d2_debugs(:mikki)) 
-  end
-
-  test "should not update someone else" do
-    login_as :mikki
-    put :update, :id => @r2d2_debug.to_param, :r2d2_debug => {:last_name => "Stone"}
-    assert_response :redirect
-    assert_redirected_to r2d2_debug_path(r2d2_debugs(:mikki))
-  end
-
-  test "should not show someone else" do
-    login_as :mikki
-    get :show, :id => @r2d2_debug.to_param
-    assert_response :redirect
-    assert_redirected_to r2d2_debug_path(r2d2_debugs(:mikki))
-  end
-
-  # Mikki should not be able to delete another r2d2_debug 
-  test "should not get to destroy someone else" do
-    login_as :mikki
-    assert_nothing_raised { R2d2Debug.find(@r2d2_debug.to_param) }
-    assert_no_difference('R2d2Debug.count') do
-      delete :destroy, :id => @r2d2_debug.to_param
-    end
-    assert_response :redirect
-    assert_redirected_to r2d2_debug_path(r2d2_debugs(:mikki))
-    assert_nothing_raised { R2d2Debug.find(@r2d2_debug.to_param) }
-  end
-=end
 end

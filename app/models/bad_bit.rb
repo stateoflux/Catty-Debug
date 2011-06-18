@@ -3,6 +3,8 @@ class BadBit < ActiveRecord::Base
   validates_numericality_of :bad_bit, :only_integer => true
   validates :bad_bit, :inclusion => {:in => 0..575}  # number of bits in a GMTL cell
 
+  #validates :r2d2_debugs, :presence => true, :associated => true
+
   has_and_belongs_to_many :r2d2_debugs
 
   def cycle

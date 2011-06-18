@@ -29,7 +29,8 @@ class UsersController < ApplicationController
       #redirect_to users_path, :notice => "User was successfully added" 
       #redirect_to login_path, :notice => "You're In! Now just log in with the email id you just provided" 
     else
-      render :action => "new", :layout => 'sessions', :notice => 'Are you sure you entered your information correctly? Please try again.'
+      render :action => "new", :notice => 'Are you sure you entered your information correctly? Please try again.'
+      #render :action => "new", :layout => 'sessions', :notice => 'Are you sure you entered your information correctly? Please try again.'
       #redirect_to new_user_path, :alert => 'Are you sure you entered your information correctly? Please try again.'
     end
   end

@@ -1,5 +1,5 @@
 class RxMemory < ActiveRecord::Base
- validates :part_number, :presence => true,
+  validates :part_number, :presence => true,
                           :length => {:within => 10..12},
                           :format => {:with => /^15-\d{4,5}-\d{2,2}$/}
 

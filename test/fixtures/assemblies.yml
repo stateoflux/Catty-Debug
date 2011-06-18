@@ -4,8 +4,10 @@ ringar_3:
   project_name: 'Ringar'
   revision: 3
   num_of_r2d2s: 8
+  assembly_number: '73-13327-01'
 
 ringar_5:
   project_name: 'Ringar'
   revision: 5
   num_of_r2d2s: 8
+  assembly_number: '73-13327-01'

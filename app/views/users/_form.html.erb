@@ -10,11 +10,11 @@
     </div>
     <% end %>
   <fieldset>
-    <% if @user.errors.on(:first_name) %>
-      <p>
-        <% @user.errors.on(:first_name) %> 
-      </p>
-    <% end %>
+    <%# if @user.errors.on(:first_name) %>
+      <!-- <p>
+        <%# @user.errors.on(:first_name) %> 
+        </p>  not sure why this code is here?-->
+    <%# end %>
     <%= f.label :first_name, 'Your First Name:' %>
     <%= f.text_field :first_name, :placeholder => 'John'%>
   </fieldset>

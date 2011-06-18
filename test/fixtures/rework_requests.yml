@@ -2,12 +2,14 @@
 
 rework_1:
   board_name: 'Ringar' 
-  two_day_turn: true 
+  turn_around: true 
   instructions: 'Replace device U28' 
   bake: true
+  xray: true
 
 rework_2:
   board_name: 'Heathland' 
-  two_day_turn: false 
+  turn_around: true 
   instructions: 'Replace device U218'
   bake: false
+  xray: true

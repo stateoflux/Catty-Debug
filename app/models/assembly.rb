@@ -11,7 +11,7 @@ class Assembly < ActiveRecord::Base
   validates_numericality_of :num_of_r2d2s, :only_integer => true
   validates :num_of_r2d2s, :inclusion => {:in => 1..8}
 
-  validates :proper_name, :presence => true
+  #validates :proper_name, :presence => true
 
   validates :assembly_number, :presence => true,
                               :length => {:within => 10..12},
@@ -29,4 +29,8 @@ class Assembly < ActiveRecord::Base
                                         # that i set the assembly attributes
 
   default_scope order('assemblies.project_name') # order search results by ascending project name
+
+  def proper_name
+    self.project_name + " rev" + self.revision.to_s
+  end
 end

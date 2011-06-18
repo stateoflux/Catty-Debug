@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
                     :uniqueness => true, 
                     :length => {:within => 5..50},
                     :format => { :with => /^[^@][\w.-]+@[\w.-]+[.][a-z]{2,4}$/i }
+
   #validates :admin, :presence => true
 
   validates :first_name, :presence => true, 
@@ -25,6 +26,6 @@ class User < ActiveRecord::Base
 
 
   def self.authenticate(email)
-    find_by_email(email)
+    find_by_email(email)   # dynamic finder, automatically built at runtime
   end
 end

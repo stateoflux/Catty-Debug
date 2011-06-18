@@ -4,8 +4,6 @@ wayne_debug:
   r2d2_instance: 2 
   interface: 'Tx' 
   serial_number: 'SAD1000000WM'
-  #user: users(:wayne) 
-  #assembly: <% build_assembly %> 
 
 mikki_debug:
   r2d2_instance: 5 
