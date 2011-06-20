@@ -107,7 +107,7 @@ $(document).ready(function() {
     // taken already??
     else if ($(this).attr('id') == 'user_email') {
 
-      if (/^[^@][\w.-]+@[\w.-]+[.][a-z]{2,4}$/i.test(this.value))
+      if (/^[^@][\w.-]+@[\w.-]+[.][a-z]{2,4}$/i.test(this.value)) {
       //if (/^\w{2,8}@cisco.com$/.test(this.value)) {
         $('<span></span>')
           .addClass('validate-pass')
