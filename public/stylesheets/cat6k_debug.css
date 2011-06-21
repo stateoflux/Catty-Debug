@@ -395,8 +395,11 @@ fieldset.login-field label {
   font-weight: bold;
 }
 
-fieldset.login-field input {
+fieldset.login-field input[type="text"] {
+  width: 350px;
   padding: 4px 6px;
+  font-size: 1em;
+  color: rgb(2,93,140);
 }
 
 div.login-container p {

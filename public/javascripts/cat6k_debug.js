@@ -106,7 +106,6 @@ $(document).ready(function() {
     // how would I be able to verify if the email address has been 
     // taken already??
     else if ($(this).attr('id') == 'user_email') {
-
       if (/^[^@][\w.-]+@[\w.-]+[.][a-z]{2,4}$/i.test(this.value)) {
       //if (/^\w{2,8}@cisco.com$/.test(this.value)) {
         $('<span></span>')
