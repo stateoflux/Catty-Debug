@@ -2,12 +2,16 @@ source 'http://rubygems.org'
 ruby "1.9.3"
 
 gem 'rails', '3.0.3'
+gem 'rake', '0.8.7'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'sqlite3'
-# gem 'sqlite3-ruby', :require => 'sqlite3'
+# 7/15/13
+# switched to PostgreSQL
+gem "pg"
+# gem 'sqlite3'
+
 gem "factory_girl_rails", "~> 1.0.1"
 
 # Use unicorn as the web server
